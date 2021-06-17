@@ -1,5 +1,5 @@
-#ifndef _Marker
-#define _Marker
+#ifndef __Marker
+#define __Marker
 #include <SFML/Graphics.hpp>
 #include <vector>
 class marker
