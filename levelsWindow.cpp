@@ -14,8 +14,8 @@ levelsWindow::levelsWindow()
     font.loadFromFile("Fonts/LibreBaskerville-Italic.ttf");
     for(int i=0;i<2;i++)
     {
-        sectionTile[i] = _tile.getObject();
-        sectionTile[i].setPosition(0.f,50.f+600*i);
+        sectionTile.push_back(_tile.getObject());
+        sectionTile.at(i).setPosition(0.f,50.f+600*i);
         section[i].setFont(font);
         section[i].setFillColor(sf::Color::Blue);
         section[i].setCharacterSize(55);
@@ -25,24 +25,26 @@ levelsWindow::levelsWindow()
     section[1].setString("Overs");
     for(int i=0;i<3;i++)
     {
-        levelTile[i] = _tile.getObject();
-        levelTile[i].setPosition(1000.f,50.f+200*i);
+        levelTile.push_back(_tile.getObject());
+        levelTile.at(i).setPosition(1000.f,50.f+200*i);
         level[i].setFont(font);
         level[i].setFillColor(sf::Color::Blue);
         level[i].setCharacterSize(55);
         level[i].setPosition(1200.f,100.f+200*i);
+        levelhover.push_back(false);
     }
     level[0].setString("Easy");
     level[1].setString("Medium");
     level[2].setString("Hard");
     for(int i=0;i<2;i++)
     {
-        oversTile[i] = _tile.getObject();
-        oversTile[i].setPosition(1000.f,650.f+200*i);
+        oversTile.push_back(_tile.getObject());
+        oversTile.at(i).setPosition(1000.f,650.f+200*i);
         overs[i].setFont(font);
         overs[i].setFillColor(sf::Color::Blue);
         overs[i].setCharacterSize(55);
         overs[i].setPosition(1200.f,700.f+200*i);
+        overshover.push_back(false);
     }
     overs[0].setString("2");
     overs[1].setString("5");
@@ -51,17 +53,17 @@ levelsWindow::levelsWindow()
 /// resetting default screen
 void levelsWindow::reset()
 {
-    levelTile[0].setFillColor(sf::Color::Red);
-    levelTile[0].setOutlineColor(sf::Color::Green);
-    levelhover[0] = true;
+    levelTile.at(0).setFillColor(sf::Color::Red);
+    levelTile.at(0).setOutlineColor(sf::Color::Green);
+    levelhover.at(0) = true;
     for(int i=0;i<2;i++)
     {
-        levelTile[i+1].setFillColor(sf::Color::Yellow);
-        levelTile[i+1].setOutlineColor(sf::Color::White);
-        levelhover[i+1] = false;
-        oversTile[i].setFillColor(sf::Color::Yellow);
-        oversTile[i].setOutlineColor(sf::Color::White);
-        overshover[i] = false;
+        levelTile.at(i+1).setFillColor(sf::Color::Yellow);
+        levelTile.at(i+1).setOutlineColor(sf::Color::White);
+        levelhover.at(i+1) = false;
+        oversTile.at(i).setFillColor(sf::Color::Yellow);
+        oversTile.at(i).setOutlineColor(sf::Color::White);
+        overshover.at(i) = false;
     }
     levelinit = false;
     event.key.code=sf::Keyboard::Space;
@@ -74,14 +76,14 @@ void levelsWindow::render(sf::RenderWindow& window)
     window.draw(spritebg);
     for(int i=0;i<2;i++)
     {
-        window.draw(sectionTile[i]);
-        window.draw(levelTile[i]);
-        window.draw(oversTile[i]);
+        window.draw(sectionTile.at(i));
+        window.draw(levelTile.at(i));
+        window.draw(oversTile.at(i));
         window.draw(section[i]);
         window.draw(level[i]);
         window.draw(overs[i]);
     }
-    window.draw(levelTile[2]);
+    window.draw(levelTile.at(2));
     window.draw(level[2]);
     window.setView(sf::View(sf::Vector2f(960.f,540.f),sf::Vector2f(1920.f,1080.f)));
     window.display();
@@ -90,49 +92,18 @@ void levelsWindow::render(sf::RenderWindow& window)
 /// logic for keys pressed for levels
 const int levelsWindow::levelLogic(sf::RenderWindow& window)
 {
-    int i;
-    switch(event.key.code)
+    int i = nav.navigate(event,3,levelhover,levelTile);
+    if(event.key.code == sf::Keyboard::Enter)
     {
-        case sf::Keyboard::Up:
-            for(i=0;i<3;i++)
-                if(levelhover[i])
-                {
-                    levelhover[i] = false;
-                    levelTile[i].setOutlineColor(sf::Color::White);
-                    levelhover[(i+2)%3] = true;
-                    levelTile[(i+2)%3].setOutlineColor(sf::Color::Green);
-                    break;
-                }
-            break;
-        case sf::Keyboard::Down:
-            for(i=0;i<3;i++)
-                if(levelhover[i])
-                {
-                    levelhover[i] = false;
-                    levelTile[i].setOutlineColor(sf::Color::White);
-                    levelhover[(i+1)%3] = true;
-                    levelTile[(i+1)%3].setOutlineColor(sf::Color::Green);
-                    break;
-                }
-            break;
-        case sf::Keyboard::Enter:
-            for(i=0;i<3;i++)
-            {
-                if(levelhover[i])
-                {
-                    levelTile[0].setFillColor(sf::Color::Yellow);
-                    levelTile[i].setFillColor(sf::Color::Red);
-                    levelinit = true;
-                    oversTile[0].setFillColor(sf::Color::Red);
-                    oversTile[0].setOutlineColor(sf::Color::Green);
-                    levelTile[i].setOutlineColor(sf::Color::White);
-                    overshover[0] = true;
-                    event.key.code = sf::Keyboard::Space;
-                    render(window);
-                    sleep(1);
-                    break;
-                }
-            }
+        render(window);
+        sleep(1);
+        levelinit = true;
+        oversTile.at(0).setFillColor(sf::Color::Red);
+        oversTile.at(0).setOutlineColor(sf::Color::Green);
+        levelTile.at(i).setOutlineColor(sf::Color::White);
+        overshover.at(0) = true;
+        event.key.code = sf::Keyboard::Space;
+        render(window);
     }
     return i;                
 }
@@ -140,34 +111,11 @@ const int levelsWindow::levelLogic(sf::RenderWindow& window)
 /// logic for keys pressed for overs
 const int levelsWindow::oversLogic(sf::RenderWindow& window)
 {
-    int j;
-    switch(event.key.code)
+    int j = nav.navigate(event,2,overshover,oversTile);
+    if(event.key.code == sf::Keyboard::Enter)
     {
-        case sf::Keyboard::Up:
-        case sf::Keyboard::Down:
-            for(j=0;j<2;j++)
-            if(overshover[j])
-            {
-                overshover[j] = false;
-                oversTile[j].setOutlineColor(sf::Color::White);
-                overshover[(j+1)%2] = true;
-                oversTile[(j+1)%2].setOutlineColor(sf::Color::Green);
-                if(oversTile[j].getOutlineColor()==sf::Color::White);
-                    break;
-            }
-            break;
-        case sf::Keyboard::Enter:
-            for(j=0;j<2;j++)
-            {
-                if(overshover[j])
-                {
-                    oversTile[0].setFillColor(sf::Color::Yellow);
-                    oversTile[j].setFillColor(sf::Color::Red);
-                    render(window);
-                    sleep(1);
-                        break;
-                }
-            }
+        render(window);
+        sleep(1);
     }
     return j;
 }

@@ -3,8 +3,10 @@
 #include <unistd.h>
 #include <iostream>
 #include "tile.h"
+#include "navAdapter.h"
 #include <cstdlib>
 #include <ctime>
+#include <vector>
 class levelsWindow
 {
 private:
@@ -13,18 +15,19 @@ private:
     sf::Text section[2];
     sf::Text level[3];
     sf::Text overs[2];
-    sf::ConvexShape sectionTile[2];
-    sf::ConvexShape oversTile[2];
-    sf::ConvexShape levelTile[3];
+    std::vector<sf::ConvexShape> sectionTile;
+    std::vector<sf::ConvexShape> oversTile;
+    std::vector<sf::ConvexShape> levelTile;
     sf::Sprite spritebg;
     sf::Texture texturebg;
     tile _tile;
 
     /// logic variables
-    bool levelhover[3];
-    bool overshover[2];
+    std::vector<bool> levelhover;
+    std::vector<bool> overshover;
     bool levelinit;
     unsigned target;
+    navAdapter nav;
 
 public:
     levelsWindow();

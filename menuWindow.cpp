@@ -22,22 +22,26 @@ menuWindow::menuWindow()
         this->text[i].setFillColor(sf::Color::Blue);
         this->text[i].setFont(this->font);
         this->text[i].setPosition(700.f,300.f+200*i);
-        tile_[i] = _tile.getObject();
-        tile_[i].setPosition(500.f,250.f+200*i);
+        tile_.push_back(_tile.getObject());
+        (*(tile_.begin()+i)).setPosition(500.f,250.f+200*i);
     }
+
+    /// initialising hover
+    for(int i=0;i<4;i++)
+    hover.push_back(false);
 }
 
 /// resetting screen to original condition
 void menuWindow::reset()
 {
-    tile_[0].setFillColor(sf::Color::Red);
-    tile_[0].setOutlineColor(sf::Color::Green);
-    hover[0] = true;
+    (*tile_.begin()).setFillColor(sf::Color::Red);
+    (*tile_.begin()).setOutlineColor(sf::Color::Green);
+    hover.at(0) = true;
     for(int i=1;i<4;i++)
     {
-        hover[i] = false;
-        tile_[i].setFillColor(sf::Color::Yellow);
-        tile_[i].setOutlineColor(sf::Color::White);
+        (*(hover.begin()+i)) = false;
+        (*(tile_.begin()+i)).setFillColor(sf::Color::Yellow);
+        (*(tile_.begin()+i)).setOutlineColor(sf::Color::White);
     }
     event.key.code = sf::Keyboard::Space;
 }
@@ -49,7 +53,7 @@ void menuWindow::render(sf::RenderWindow& window)
     window.draw(spritebg);
     for(int i=0;i<4;i++)
     {
-        window.draw(tile_[i]);
+        window.draw((*(tile_.begin()+i)));
         window.draw(text[i]);
     }
     window.setView(sf::View(sf::Vector2f(960.f,540.f),sf::Vector2f(1920.f,1080.f)));
@@ -60,47 +64,14 @@ jump_t menuWindow::call(sf::RenderWindow& window)
 {
     int i;
     reset();
+    render(window);
     while(true)
     {
         while(window.pollEvent(event))
         {
             if(event.type==sf::Event::KeyPressed)
             {
-                switch(event.key.code)
-                {
-                    case sf::Keyboard::Up: 
-                        for(i=0;i<4;i++)
-                            if(hover[i])
-                            {
-                                hover[i] = false;
-                                tile_[i].setOutlineColor(sf::Color::White);
-                                hover[(i+3)%4] = true;
-                                tile_[(i+3)%4].setOutlineColor(sf::Color::Green);
-                                break;
-                            }
-                        break;
-                    case sf::Keyboard::Down:
-                        for(i=0;i<4;i++)
-                            if(hover[i])
-                            {
-                                hover[i] = false;
-                                tile_[i].setOutlineColor(sf::Color::White);
-                                hover[(i+1)%4] = true;
-                                tile_[(i+1)%4].setOutlineColor(sf::Color::Green);
-                                break;
-                            }
-                        break;
-                    case sf::Keyboard::Enter:
-                        for(i=0;i<4;i++)
-                        {
-                            if(hover[i])
-                            {
-                                tile_[0].setFillColor(sf::Color::Yellow);
-                                tile_[i].setFillColor(sf::Color::Red);
-                                break;
-                            }
-                        }
-                }
+                i = nav.navigate(event,4,hover,tile_);
             }
             render(window);
             if(event.key.code==sf::Keyboard::Enter)

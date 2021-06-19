@@ -1,6 +1,8 @@
 #ifndef _Menu
 #define _Menu
 #include "tile.h"
+#include "navAdapter.h"
+#include <vector>
 enum class jump_t {HELP,ABOUT,LEVELS,CLOSE};
 class menuWindow
 {
@@ -8,12 +10,13 @@ class menuWindow
     sf::Font font;
     sf::Text text[4];
     tile _tile;
-    sf::ConvexShape tile_[4];
+    std::vector<sf::ConvexShape> tile_;
     sf::Sprite spritebg;
     sf::Texture texturebg;
 
     /// logic variables
-    bool hover[4];
+    std::vector<bool> hover;
+    navAdapter nav;
 
 public:
     menuWindow();
