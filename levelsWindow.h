@@ -1,12 +1,10 @@
-#ifndef LEVELSWINDOW_H
-#define LEVELSWINDOW_H
+#ifndef _LEVELS_WINDOW_H
+#define _LEVELS_WINDOW_H
 #include <unistd.h>
 #include <iostream>
-#include "tile.h"
-#include "navAdapter.h"
+#include "objects.h"
 #include <cstdlib>
 #include <ctime>
-#include <vector>
 class levelsWindow
 {
 private:
@@ -15,26 +13,25 @@ private:
     sf::Text section[2];
     sf::Text level[3];
     sf::Text overs[2];
-    std::vector<sf::ConvexShape> sectionTile;
-    std::vector<sf::ConvexShape> oversTile;
-    std::vector<sf::ConvexShape> levelTile;
     sf::Sprite spritebg;
     sf::Texture texturebg;
-    tile _tile;
+    tile* _sectionTile[2];
+    tile* _levelTile[3];
+    tile* _oversTile[2];
 
     /// logic variables
-    std::vector<bool> levelhover;
-    std::vector<bool> overshover;
+    bool levelhover[3];
+    bool overshover[2];
     bool levelinit;
     unsigned target;
-    navAdapter nav;
-
+    unsigned Overs;
+    unsigned arr[2];
 public:
     levelsWindow();
     void reset();
     const int levelLogic(sf::RenderWindow& window);
     const int oversLogic(sf::RenderWindow& window);
     void render(sf::RenderWindow& window);
-    unsigned call(sf::RenderWindow& window);
+    unsigned* call(sf::RenderWindow& window);
 };
 #endif

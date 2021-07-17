@@ -12,58 +12,59 @@ levelsWindow::levelsWindow()
 
     /// setting up text and tiles
     font.loadFromFile("Fonts/LibreBaskerville-Italic.ttf");
+    section[0].setString("Level");
+    section[1].setString("Overs");
     for(int i=0;i<2;i++)
     {
-        sectionTile.push_back(_tile.getObject());
-        sectionTile.at(i).setPosition(0.f,50.f+600*i);
+        _sectionTile[i] = new tile();
+        _sectionTile[i]->tiles.setPosition(0.f,50.f+600*i);
         section[i].setFont(font);
         section[i].setFillColor(sf::Color::Blue);
         section[i].setCharacterSize(55);
         section[i].setPosition(200.f,100.f+600*i);
-    }
-    section[0].setString("Level");
-    section[1].setString("Overs");
-    for(int i=0;i<3;i++)
-    {
-        levelTile.push_back(_tile.getObject());
-        levelTile.at(i).setPosition(1000.f,50.f+200*i);
-        level[i].setFont(font);
-        level[i].setFillColor(sf::Color::Blue);
-        level[i].setCharacterSize(55);
-        level[i].setPosition(1200.f,100.f+200*i);
-        levelhover.push_back(false);
+        _sectionTile[i]->text = section[i];
     }
     level[0].setString("Easy");
     level[1].setString("Medium");
     level[2].setString("Hard");
+    for(int i=0;i<3;i++)
+    {
+        _levelTile[i] = new tile();
+        _levelTile[i]->tiles.setPosition(1000.f,50.f+200*i);
+        level[i].setFont(font);
+        level[i].setFillColor(sf::Color::Blue);
+        level[i].setCharacterSize(55);
+        level[i].setPosition(1200.f,100.f+200*i);
+        _levelTile[i] -> text = level[i];
+    }
+    overs[0].setString("2");
+    overs[1].setString("5");
     for(int i=0;i<2;i++)
     {
-        oversTile.push_back(_tile.getObject());
-        oversTile.at(i).setPosition(1000.f,650.f+200*i);
+        _oversTile[i] = new tile();
+        _oversTile[i]->tiles.setPosition(1000.f,650.f+200*i);
         overs[i].setFont(font);
         overs[i].setFillColor(sf::Color::Blue);
         overs[i].setCharacterSize(55);
         overs[i].setPosition(1200.f,700.f+200*i);
-        overshover.push_back(false);
+        _oversTile[i]->text = overs[i];
     }
-    overs[0].setString("2");
-    overs[1].setString("5");
 }
 
 /// resetting default screen
 void levelsWindow::reset()
 {
-    levelTile.at(0).setFillColor(sf::Color::Red);
-    levelTile.at(0).setOutlineColor(sf::Color::Green);
-    levelhover.at(0) = true;
+    _levelTile[0]->tiles.setFillColor(sf::Color::Red);
+    _levelTile[0]->tiles.setOutlineColor(sf::Color::Green);
+    _levelTile[0]->state = "Hover";
     for(int i=0;i<2;i++)
     {
-        levelTile.at(i+1).setFillColor(sf::Color::Yellow);
-        levelTile.at(i+1).setOutlineColor(sf::Color::White);
-        levelhover.at(i+1) = false;
-        oversTile.at(i).setFillColor(sf::Color::Yellow);
-        oversTile.at(i).setOutlineColor(sf::Color::White);
-        overshover.at(i) = false;
+        _levelTile[i+1]->tiles.setFillColor(sf::Color::Yellow);
+        _levelTile[i+1]->tiles.setOutlineColor(sf::Color::White);
+        _levelTile[i+1]->state = "NULL";
+        _oversTile[i]->tiles.setFillColor(sf::Color::Yellow);
+        _oversTile[i]->tiles.setOutlineColor(sf::Color::White);
+        _oversTile[i]->state = "NULL";
     }
     levelinit = false;
     event.key.code=sf::Keyboard::Space;
@@ -76,15 +77,15 @@ void levelsWindow::render(sf::RenderWindow& window)
     window.draw(spritebg);
     for(int i=0;i<2;i++)
     {
-        window.draw(sectionTile.at(i));
-        window.draw(levelTile.at(i));
-        window.draw(oversTile.at(i));
-        window.draw(section[i]);
-        window.draw(level[i]);
-        window.draw(overs[i]);
+        window.draw(_sectionTile[i]->tiles);
+        window.draw(_levelTile[i]->tiles);
+        window.draw(_oversTile[i]->tiles);
+        window.draw(_sectionTile[i]->text);
+        window.draw(_levelTile[i]->text);
+        window.draw(_oversTile[i]->text);
     }
-    window.draw(levelTile.at(2));
-    window.draw(level[2]);
+    window.draw(_levelTile[2]->tiles);
+    window.draw(_levelTile[2]->text);
     window.setView(sf::View(sf::Vector2f(960.f,540.f),sf::Vector2f(1920.f,1080.f)));
     window.display();
 }
@@ -92,18 +93,49 @@ void levelsWindow::render(sf::RenderWindow& window)
 /// logic for keys pressed for levels
 const int levelsWindow::levelLogic(sf::RenderWindow& window)
 {
-    int i = nav.navigate(event,3,levelhover,levelTile);
-    if(event.key.code == sf::Keyboard::Enter)
+    int i;
+    switch(event.key.code)
     {
-        render(window);
-        sleep(1);
-        levelinit = true;
-        oversTile.at(0).setFillColor(sf::Color::Red);
-        oversTile.at(0).setOutlineColor(sf::Color::Green);
-        levelTile.at(i).setOutlineColor(sf::Color::White);
-        overshover.at(0) = true;
-        event.key.code = sf::Keyboard::Space;
-        render(window);
+        case sf::Keyboard::Up:
+            for(i=0;i<3;i++)
+                if(_levelTile[i]->state == "Hover")
+                {
+                    _levelTile[i]->state = "NULL";
+                    _levelTile[i]->updateColor();
+                    _levelTile[(i+2)%3]->state = "Hover";
+                    _levelTile[(i+2)%3]->updateColor();
+                    break;
+                }
+            break;
+        case sf::Keyboard::Down:
+            for(i=0;i<3;i++)
+                if(_levelTile[i]->state == "Hover")
+                {
+                    _levelTile[i]->state = "NULL";
+                    _levelTile[i]->updateColor();
+                    _levelTile[(i+1)%3]->state = "Hover";
+                    _levelTile[(i+1)%3]->updateColor();
+                    break;
+                }
+            break;
+        case sf::Keyboard::Enter:
+            for(i=0;i<3;i++)
+            {
+                if(_levelTile[i]->state == "Hover")
+                {
+                    _levelTile[0]->tiles.setFillColor(sf::Color::Yellow);
+                    _levelTile[i]->tiles.setFillColor(sf::Color::Red);
+                    levelinit = true;
+                    _oversTile[0]->tiles.setFillColor(sf::Color::Red);
+                    _oversTile[0]->tiles.setOutlineColor(sf::Color::Green);
+                    _levelTile[i]->tiles.setOutlineColor(sf::Color::White);
+                    _oversTile[0]->state = "Hover";
+                    event.key.code = sf::Keyboard::Space;
+                    render(window);
+                    sleep(1);
+                    break;
+                }
+            }
     }
     return i;                
 }
@@ -111,16 +143,39 @@ const int levelsWindow::levelLogic(sf::RenderWindow& window)
 /// logic for keys pressed for overs
 const int levelsWindow::oversLogic(sf::RenderWindow& window)
 {
-    int j = nav.navigate(event,2,overshover,oversTile);
-    if(event.key.code == sf::Keyboard::Enter)
+    int j;
+    switch(event.key.code)
     {
-        render(window);
-        sleep(1);
+        case sf::Keyboard::Up:
+        case sf::Keyboard::Down:
+            for(j=0;j<2;j++)
+            if(_oversTile[j]->state == "Hover")
+            {
+                _oversTile[j]->state = "NULL";
+                _oversTile[j]->updateColor();
+                _oversTile[(j+1)%2]->state = "Hover";
+                _oversTile[(j+1)%2]->updateColor();
+                if(_oversTile[j]->tiles.getOutlineColor()==sf::Color::White);
+                    break;
+            }
+            break;
+        case sf::Keyboard::Enter:
+            for(j=0;j<2;j++)
+            {
+                if(_oversTile[j]->state == "Hover")
+                {
+                    _oversTile[0]->tiles.setFillColor(sf::Color::Yellow);
+                    _oversTile[j]->tiles.setFillColor(sf::Color::Red);
+                    render(window);
+                    sleep(1);
+                        break;
+                }
+            }
     }
     return j;
 }
 
-unsigned levelsWindow::call(sf::RenderWindow& window)
+unsigned* levelsWindow::call(sf::RenderWindow& window)
 {
     int i,j;
     reset();
@@ -135,19 +190,27 @@ unsigned levelsWindow::call(sf::RenderWindow& window)
                 j = oversLogic(window);
                 if(event.key.code==sf::Keyboard::Enter)
                 {
-                    if(j==0 && i==0)
+                    if(j==0 && i==0){
                         target = rand()%(16-12+1)+12;
-                    else if(j==0 && i==1)
+                        Overs = 2;}
+                    else if(j==0 && i==1){
                         target = rand()%(20-17+1)+17;
-                    else if(j==0 && i==2)
+                        Overs = 2;}
+                    else if(j==0 && i==2){
                         target = rand()%(24-21+1)+21;
-                    else if(j==1 && i==0)
+                        Overs = 2;}
+                    else if(j==1 && i==0){
                         target = rand()%(30-25+1)+25;
-                    else if(j==1 && i==1)
+                        Overs = 5;}
+                    else if(j==1 && i==1){
                         target = rand()%(40-31+1)+31;
-                    else if(j==1 && i==2)
+                        Overs = 5;}
+                    else if(j==1 && i==2){
                         target = rand()%(50-41+1)+41;
-                    return target;
+                        Overs = 5;}
+                    arr[0] = target;
+                    arr[1] = Overs;
+                    return arr;
                 }
             }
         }

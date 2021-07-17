@@ -9,39 +9,36 @@ menuWindow::menuWindow()
     sf::Vector2u bgsize=this->texturebg.getSize();
     spritebg.setScale(1920/static_cast<float>(bgsize.x),1080/static_cast<float>(bgsize.y));
     spritebg.setPosition(0.f,0.f);
-
+    
+    for(int i=0;i<4;i++)
+    {
+        _tile[i] = new tile();
+    }
     /// setting up text and tiles
     this->font.loadFromFile("Fonts/LibreBaskerville-Italic.ttf");
-    this->text[0].setString("Play");
-    this->text[1].setString("Help");
-    this->text[2].setString("About");
-    this->text[3].setString("Close");
+    text[0].setString("Play");
+    text[1].setString("Help");
+    text[2].setString("About");
+    text[3].setString("Close");
     for(int i=0;i<4;i++)
     {
         this->text[i].setCharacterSize(55);
         this->text[i].setFillColor(sf::Color::Blue);
         this->text[i].setFont(this->font);
         this->text[i].setPosition(700.f,300.f+200*i);
-        tile_.push_back(_tile.getObject());
-        (*(tile_.begin()+i)).setPosition(500.f,250.f+200*i);
+        _tile[i]->tiles.setPosition(500.f,250.f+200*i);
     }
-
-    /// initialising hover
-    for(int i=0;i<4;i++)
-    hover.push_back(false);
 }
 
 /// resetting screen to original condition
 void menuWindow::reset()
 {
-    (*tile_.begin()).setFillColor(sf::Color::Red);
-    (*tile_.begin()).setOutlineColor(sf::Color::Green);
-    hover.at(0) = true;
+    _tile[0]->state = "Hover";
+    _tile[0]->tiles.setFillColor(sf::Color::Red);
     for(int i=1;i<4;i++)
     {
-        (*(hover.begin()+i)) = false;
-        (*(tile_.begin()+i)).setFillColor(sf::Color::Yellow);
-        (*(tile_.begin()+i)).setOutlineColor(sf::Color::White);
+        _tile[i]->state = "NULL";
+        _tile[i]->updateColor();
     }
     event.key.code = sf::Keyboard::Space;
 }
@@ -53,8 +50,9 @@ void menuWindow::render(sf::RenderWindow& window)
     window.draw(spritebg);
     for(int i=0;i<4;i++)
     {
-        window.draw((*(tile_.begin()+i)));
-        window.draw(text[i]);
+        _tile[i]->setText(text[i]);
+        window.draw(_tile[i]->tiles);
+        window.draw(_tile[i]->text);
     }
     window.setView(sf::View(sf::Vector2f(960.f,540.f),sf::Vector2f(1920.f,1080.f)));
     window.display();
@@ -64,28 +62,62 @@ jump_t menuWindow::call(sf::RenderWindow& window)
 {
     int i;
     reset();
-    render(window);
     while(true)
     {
         while(window.pollEvent(event))
         {
             if(event.type==sf::Event::KeyPressed)
             {
-                i = nav.navigate(event,4,hover,tile_);
+                switch(event.key.code)
+                {
+                    case sf::Keyboard::Up: 
+                        for(i=0;i<4;i++)
+                            if(_tile[i]->state == "Hover")
+                            {
+                                _tile[i]->state = "NULL";
+                                _tile[i]->updateColor();
+                                _tile[(i+3)%4]->state = "Hover";
+                                _tile[(i+3)%4]->updateColor();
+                                break;
+                            }
+                        break;
+                    case sf::Keyboard::Down:
+                        for(i=0;i<4;i++)
+                            if(_tile[i]->state == "Hover")
+                            {
+                                _tile[i]->state = "NULL";
+                                _tile[i]->updateColor();
+                                _tile[(i+1)%4]->state = "Hover";
+                                _tile[(i+1)%4]->updateColor();
+                                break;
+                            }
+                        break;
+                    case sf::Keyboard::Enter:
+                        for(i=0;i<4;i++)
+                        {
+                            if(_tile[i]->state == "Hover")
+                            {
+                                _tile[0]->tiles.setFillColor(sf::Color::Yellow);
+                                _tile[i]->tiles.setFillColor(sf::Color::Red);
+                                break;
+                            }
+                        }
+                }
             }
             render(window);
             if(event.key.code==sf::Keyboard::Enter)
             {
                 sleep(1);
-                if(text[i].getString()=="Play")
+                if(_tile[i]->text.getString()=="Play")
                     return jump_t::LEVELS;
-                if(text[i].getString()=="Close")
+                if(_tile[i]->text.getString()=="Close")
                     return jump_t::CLOSE;
-                if(text[i].getString()=="Help")
+                if(_tile[i]->text.getString()=="Help")
                     return jump_t::HELP;
-                if(text[i].getString()=="About")
+                if(_tile[i]->text.getString()=="About")
                     return jump_t::ABOUT;
             }
         }
     }
 }
+// main.o playWindow.o aboutWindow.o helpWindow.o menuWindow.o levels_Window.o objects.o

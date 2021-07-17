@@ -1,6 +1,16 @@
 #include "playWindow.h"
 playWindow::playWindow()
 {
+    this->initvariables();
+}
+
+void playWindow::initvariables()
+{
+    this->texturebg.loadFromFile("Background/bg.jpg");
+    this->spritebg.setTexture(this->texturebg);
+    sf::Vector2u bgsize=this->texturebg.getSize();
+    spritebg.setScale(1920/static_cast<float>(bgsize.x),1080/static_cast<float>(bgsize.y));
+    spritebg.setPosition(0.f,0.f);
     /// position the crease
     this->crease_ = this->_crease.getObject();
     (*this->crease_.begin()).setPosition(198.f,520.f);
@@ -15,7 +25,8 @@ playWindow::playWindow()
     (*(this->crease_.begin()+5)).setPosition(440.f,100.f);
     
     /// initialise the movement speed
-    movementSpeed = 0.25f;
+    movementSpeed = 5.f;
+    xupdate = false;
     /// position the bat
     this->bat_ = this->_bat.getObject();
 
@@ -78,13 +89,34 @@ playWindow::playWindow()
     score.setCharacterSize(20);
     this->overs.setFont(this->font);
     overs.setCharacterSize(20);
-    overs.setPosition(0.f,20.f);
+    overs.setPosition(0.f,40.f);
+    this->wicket.setFont(this->font);
+    wicket.setCharacterSize(20);
+    wicket.setPosition(0.f,20.f);
     this->target.setPosition(700.f,0.f);
     target.setCharacterSize(20);
-    target.setFont(font); 
+    target.setFont(this->font);
+    GameOver.setPosition(300.f,300.f);
+    GameOver.setCharacterSize(80);
+    GameOver.setFont(this->font); 
+    this->Shot.setPosition(600.f,30.f);
+    Shot.setCharacterSize(20);
+    Shot.setFont(this->font);
+    Shot.setFillColor(sf::Color::Red);
+    Shot.setString("Previous Shot:");
 
     /// Ball didn't hit the marker yet
     BallHitMark = false;  
+    BallHitBat = false;
+    BallHitWicket = false;
+    keypressed = "O";
+    Score = 0;
+    Overs = 0;
+    Wickets = 0;
+    gameOver = false;
+    wicketUpdated = false;
+    scoreUpdated = false;
+    clockrestarted = false;
 }
 
 void playWindow::updateBallMovement()
@@ -119,8 +151,8 @@ void playWindow::updateBallSwing()
 void playWindow::updateMarker()
 {
     ///initialisng random position of marker
-    float x = rand() % 225 + 228;
-    float y = rand() % 331 + 160;
+    float x = rand() % 190 + 280;
+    float y = rand() % 200 + 300;
     this->marker_.setPosition(x,y);
 }
 
@@ -129,27 +161,30 @@ void playWindow::update()
     ///moving the batsman
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
     {
-        this->batsman_.move(-this->movementSpeed, 0.f);
+        this->batsman_.move(-0.25f, 0.f);
         for(int i=0;i<2;i++)
         {
-            this->bat_[i].move(-this->movementSpeed, 0.f);
+            this->bat_[i].move(-0.25f, 0.f);
         }
+        keypressed = "A";
     }
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
     {
-        this->batsman_.move(this->movementSpeed, 0.f);
+        this->batsman_.move(0.25f, 0.f);
         for(int i=0;i<2;i++)
         {
-            this->bat_[i].move(this->movementSpeed, 0.f);
+            this->bat_[i].move(0.25f, 0.f);
         }
+        keypressed = "D";
     }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::G))
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::G))
     {
         this->batsman_.move(-0.05f,-0.05f);
         for(int i=0;i<2;i++)
         {
             this->bat_[i].move(-0.05f,-0.05f);
         }
+        keypressed = "G";
     }
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::H))
     {
@@ -158,6 +193,7 @@ void playWindow::update()
         {
             this->bat_[i].move(-0.025f,-0.05f);
         }
+        keypressed = "H";
     }
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::J))
     {
@@ -166,6 +202,7 @@ void playWindow::update()
         {
             this->bat_[i].move(0.f,-0.05f);
         }
+        keypressed = "J";
     }
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::K))
     {   
@@ -174,6 +211,7 @@ void playWindow::update()
         {
             this->bat_[i].move(0.025f,-0.05f);
         }
+        keypressed = "K";
     }
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::L))
     {
@@ -182,17 +220,17 @@ void playWindow::update()
         {
             this->bat_[i].move(0.05f,-0.05f);
         }
+        keypressed = "L";
     }
-    
 }
 
 void playWindow::defaultscr(sf::RenderWindow& window)
 {
     /// resetting scores, overs and targets
-    score.setString("Score: 0/0");
-    overs.setString("Overs: 0.0");
+    score.setString("Score: "+std::to_string(Score));
+    wicket.setString("Wickets"+std::to_string(Wickets));
+    overs.setString("Overs: "+std::to_string(Overs));
     target.setString("Target: "+std::to_string(chase));
-
     /// rendering default screen
     window.clear(sf::Color::Green);
     window.draw(pitch_);
@@ -210,18 +248,24 @@ void playWindow::defaultscr(sf::RenderWindow& window)
         window.draw(bail_[i]);
     window.draw(ball_);
     window.draw(score);
+    window.draw(wicket);
     window.draw(overs);
     window.draw(target);
+    window.draw(Shot);
     window.setView(sf::View(sf::Vector2f(400.f,300.f),sf::Vector2f(800.f,600.f)));
     window.draw(tile_);
     window.draw(back);
     window.display();
 }
 
-void playWindow::call(unsigned tgt,sf::RenderWindow& window)
+void playWindow::call(unsigned* tgt,sf::RenderWindow& window)
 {
-    this->chase = tgt;
+    this->chase = tgt[0];
+    std::cout << "Overs is: " << tgt[1] << std::endl;
     event.key.code = sf::Keyboard::Space;  
+    this->initvariables();
+    sf::Clock clock;
+    gameOver = false;
     while(true)
     {
         while(window.pollEvent(this->event))
@@ -229,37 +273,224 @@ void playWindow::call(unsigned tgt,sf::RenderWindow& window)
             if(this->event.type==sf::Event::KeyPressed && this->event.key.code==sf::Keyboard::Escape)
             {
                 window.setView(sf::View(sf::Vector2f(960.f,540.f),sf::Vector2f(1920.f,1080.f)));
+                gameOver = false;
                 return;
             }
         }
-        this->defaultscr(window);    
+        if((Score >= chase) || (Overs == tgt[1]))
+        {
+            gameOver = true;
+        }
+        BallHitWicket = false; 
+        if(gameOver == false)
+        {
+            this->defaultscr(window);
         if(this->ball_.getPosition().y < window.getSize().y)
         {
             if(this->ball_.getPosition().y < marker_.getPosition().y)
             {
                 this->updateBallMovement();
+                if(xupdate == false)
+                {
+                    x = movementSpeed;
+                    xupdate = true;
+                }
+                if(BallHitBat == true)
+                {
+                    if(keypressed == "G")
+                    {
+                        ball_.move(-x,-x);
+                    }
+                    else if(keypressed == "H")
+                    {
+                        ball_.move(-x*(0.5),-x);
+                    }
+                    else if(keypressed == "K")
+                    {
+                        ball_.move(x*(0.5),-x);
+                    }
+                    else if(keypressed == "L")
+                    {
+                        ball_.move(x,-x);
+                    }
+                    else
+                    {
+                        ball_.move(0.f,-x);
+                    }
+                }
+                
             }
             else if(this->ball_.getPosition().y >= marker_.getPosition().y)
             {
+                if(clockrestarted == false)
+                {
+                    clock.restart();
+                    clockrestarted = true;
+                }
                 if(BallHitMark == false)
                 {
                     SWING = rand() % 3;
-                    std::cout << SWING << std::endl;
                     BallHitMark = true;
                 }
-                this->updateBallSwing();
+                if((BallHitMark == true) && (bat_[1].getGlobalBounds().contains(ball_.getPosition())))
+                {
+                    BallHitBat = true;
+                }
+                if(BallHitBat == true)
+                {
+
+                    sf::Time timeelapsed = clock.restart();
+                    float x = 520-marker_.getPosition().y;
+                    int i;
+                    i = rand()%2;
+                    sf::Time halfidealTime = sf::seconds(x/30);
+                    sf::Time onehalfidealTime = sf::seconds(x/10);
+                    if((timeelapsed>halfidealTime) && (timeelapsed<onehalfidealTime))
+                    {
+                        if(scoreUpdated == false)
+                        {
+                        if(i==0)
+                        {
+                            Score = Score + 6;
+                            Shot.setString("Previous Shot:6");
+                        }
+                        else if(i == 1)
+                        {
+                            Score = Score + 4;
+                            movementSpeed = movementSpeed*(0.5);
+                            Shot.setString("Previous Shot:4");
+                        }
+                        scoreUpdated = true;
+                        }
+                    }
+                    else
+                    {
+                        if(scoreUpdated == false)
+                        {
+                        if(i==0)
+                        {
+                            Score = Score + 2;
+                            movementSpeed = movementSpeed*(0.25);
+                            Shot.setString("Previous Shot:2");
+                        }
+                        if(i==1)
+                        {
+                            Score = Score + 1;
+                            movementSpeed = movementSpeed*(0.125);
+                            Shot.setString("Previous Shot:1");
+                        }
+                        scoreUpdated = true;
+                        }
+                    }
+                    if(keypressed == "G")
+                    {
+                        ball_.move(-movementSpeed,-movementSpeed);
+                    }
+                    else if(keypressed == "H")
+                    {
+                        ball_.move(-(movementSpeed*(0.5)),-movementSpeed);
+                    }
+                    else if(keypressed == "K")
+                    {
+                        ball_.move(movementSpeed*(0.5),-movementSpeed);
+                    }
+                    else if(keypressed == "L")
+                    {
+                        ball_.move(movementSpeed,-movementSpeed);
+                    }
+                    else
+                    {
+                        ball_.move(0.f,-movementSpeed);
+                    }
+                }
+                else
+                {
+                    this->updateBallSwing();
+                    if((ball_.getPosition().y > 450.f) && (ball_.getPosition().y < 550.f) && (ball_.getPosition().x < 437.f) && (ball_.getPosition().x > 389.f))
+                    {
+                        this->bail_[0].setPosition(369.f,420.f);
+                        this->bail_[1].setPosition(425.f,420.f);
+                        BallHitWicket = true;
+                        if(wicketUpdated == false)
+                        {
+                            Wickets = Wickets + 1;
+                            wicketUpdated = true;
+                        }
+                    }
+                }
             }
             
         }
         else
-        {
+        { 
+            int x = Overs*10;
+            if((x-5) % 10 == 0)
+            {
+                Overs = (x-5)/10 + 1;
+            }
+            else
+            {
+                Overs = Overs + 0.1;
+            }
             this->ball_.setPosition(450.f,30.f);
             this->updateMarker();
             this->bat_[0].setPosition(415.f,440.f);
             this->bat_[1].setPosition(410.f,460.f);
             this->batsman_.setPosition(195.f,330.f);
+            this->bail_[0].setPosition(390.f,450.f);
+            this->bail_[1].setPosition(410.f,450.f);
             BallHitMark = false;
+            wicketUpdated = false;
+            scoreUpdated = false;
+            xupdate = false;
+        }
+        if(((this->ball_.getPosition().y < -150.f) || (this->ball_.getPosition().x > window.getSize().x) || (this->ball_.getPosition().x < 0)) && BallHitBat == true)
+        {
+            int x = Overs*10;
+            if((x-5) % 10 == 0)
+            {
+                Overs = (x-5)/10 + 1;
+            }
+            else
+            {
+                Overs = Overs + 0.1;
+            }
+            this->ball_.setFillColor(sf::Color::Red);
+            this->ball_.setPosition(450.f,30.f);
+            BallHitBat = false;
+            this->updateMarker();
+            this->bat_[0].setPosition(415.f,440.f);
+            this->bat_[1].setPosition(410.f,460.f);
+            this->bail_[0].setPosition(390.f,450.f);
+            this->bail_[1].setPosition(410.f,450.f);
+            this->batsman_.setPosition(195.f,330.f);
+            BallHitMark = false;
+            wicketUpdated = false;
+            scoreUpdated = false;
+            xupdate = false;
+            movementSpeed = 5.f;
         }
         this->update();
+        }
+        else
+        {
+            GameOver.setPosition(300.f,380.f);
+            GameOver.setCharacterSize(120);
+            GameOver.setFont(this->font); 
+            GameOver.setFillColor(sf::Color::Yellow);
+            if(Score >= chase)
+            {
+                GameOver.setString("Good Game Champ! \nYou saved the children");
+            }
+            else
+            {
+                GameOver.setString("Bad luck Champ \nChildren lost their ground");
+            }
+            window.clear();
+            window.draw(spritebg);
+            window.draw(GameOver);
+            window.setView(sf::View(sf::Vector2f(960.f,540.f),sf::Vector2f(1920.f,1080.f)));
+            window.display();
+        }
     }
 }
