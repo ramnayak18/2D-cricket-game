@@ -177,50 +177,50 @@ void playWindow::update()
         }
         keypressed = "D";
     }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::G))
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
     {
         this->batsman_.move(-0.05f,-0.05f);
         for(int i=0;i<2;i++)
         {
             this->bat_[i].move(-0.05f,-0.05f);
         }
-        keypressed = "G";
+        keypressed = "Q";
     }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::H))
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
     {
         this->batsman_.move(-0.025f,-0.05f);
         for(int i=0;i<2;i++)
         {
             this->bat_[i].move(-0.025f,-0.05f);
         }
-        keypressed = "H";
+        keypressed = "W";
     }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::J))
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))
     {
         this->batsman_.move(0.f,-0.05f);
         for(int i=0;i<2;i++)
         {
             this->bat_[i].move(0.f,-0.05f);
         }
-        keypressed = "J";
+        keypressed = "E";
     }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::K))
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::R))
     {   
         this->batsman_.move(0.025f,-0.05f);
         for(int i=0;i<2;i++)
         {
             this->bat_[i].move(0.025f,-0.05f);
         }
-        keypressed = "K";
+        keypressed = "R";
     }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::L))
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::T))
     {
         this->batsman_.move(0.05f,-0.05f);
         for(int i=0;i<2;i++)
         {
             this->bat_[i].move(0.05f,-0.05f);
         }
-        keypressed = "L";
+        keypressed = "T";
     }
 }
 
