@@ -39,6 +39,7 @@ void menuWindow::reset()
     {
         _tile[i]->state = "NULL";
         _tile[i]->updateColor();
+        _tile[i]->tiles.setFillColor(sf::Color::Yellow);
     }
     event.key.code = sf::Keyboard::Space;
 }
@@ -120,4 +121,3 @@ jump_t menuWindow::call(sf::RenderWindow& window)
         }
     }
 }
-// main.o playWindow.o aboutWindow.o helpWindow.o menuWindow.o levels_Window.o objects.o
