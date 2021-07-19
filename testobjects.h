@@ -1,6 +1,6 @@
 #ifndef OBJECTTEST_H
 #define OBJECTTEST_H
-#include<gtest/gtest.h>
+#include <gtest/gtest.h>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include"objects.h"
