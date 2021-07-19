@@ -15,7 +15,7 @@ int main()
     playWindow play;
     aboutWindow about;
 
-    unsigned target;
+    unsigned* arr;
     /// switching between the various windows
     jump_t jumpTo;
     Menu: jumpTo = menu.call(*window);
@@ -26,8 +26,8 @@ int main()
         case jump_t::HELP: goto Help;
         case jump_t::ABOUT: goto About;
     }
-    lvl: target = levels.call(*window);
-    Play: play.call(target,*window);
+    lvl: arr = levels.call(*window);
+    Play: play.call(arr,*window);
     goto Menu;
     Help: help.call(*window);
     goto Menu;

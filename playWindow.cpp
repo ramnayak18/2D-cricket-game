@@ -25,7 +25,7 @@ void playWindow::initvariables()
     (*(this->crease_.begin()+5)).setPosition(440.f,100.f);
     
     /// initialise the movement speed
-    movementSpeed = 5.f;
+    _ball.movementSpeed = 8.f;
     xupdate = false;
     /// position the bat
     this->bat_ = this->_bat.getObject();
@@ -39,7 +39,7 @@ void playWindow::initvariables()
 
     /// position the marker
     this->marker_ = this->_marker.getObject();
-    
+    marker_.setPosition(408.f,380.f);
     /// position the stumps
     for(int i=0;i<3;i++)
     {
@@ -66,8 +66,8 @@ void playWindow::initvariables()
     }
 
     ///position the ball
-    this->ball_ = this->_ball.getObject();
-    this->ball_.setPosition(450.f,30.f);
+    _ball.Ball.setPosition(450.f,30.f);
+    _ball.state = "To Marker";
     /// position the tile
     this->tile_ = this->_tile.getObject();
     tile_.setScale(0.3f,0.3f);
@@ -102,8 +102,11 @@ void playWindow::initvariables()
     this->Shot.setPosition(600.f,30.f);
     Shot.setCharacterSize(20);
     Shot.setFont(this->font);
-    Shot.setFillColor(sf::Color::Red);
-    Shot.setString("Previous Shot:");
+    Shot.setFillColor(sf::Color::Blue);
+    Shot.setString("0");
+    this->BowlerType.setPosition(300.f,300.f);
+    BowlerType.setFont(this->font);
+    BowlerType.setFillColor(sf::Color::Yellow);
 
     /// Ball didn't hit the marker yet
     BallHitMark = false;  
@@ -117,43 +120,40 @@ void playWindow::initvariables()
     wicketUpdated = false;
     scoreUpdated = false;
     clockrestarted = false;
+    BowlerTypeShown = false;
 }
 
-void playWindow::updateBallMovement()
+void playWindow::updateBowlerType()
 {
-    float x1 = marker_.getPosition().x - this->ball_.getPosition().x;
-    float y1 = marker_.getPosition().y - this->ball_.getPosition().y;
-    if(x1>y1)
+    int x = rand() % 2;
+    if(x == 0)
     {
-        float z = y1/(2*x1);
-        this->ball_.move(0.5f,z);
+        _ball.getBowlerType("FAST");
+        BowlerType.setString("FAST");
     }
-    else if(y1>x1)
+    if(x == 1)
     {
-        float z = x1/(2*y1);
-        this->ball_.move(z,0.5f);
-    }
-}
-
-void playWindow::updateBallSwing()
-{
-    switch(SWING)
-    {
-        case INSWING:
-        this->ball_.move(-0.5f,0.5f); break;
-        case STRAIGHT:
-        this->ball_.move(0.f,0.5f); break;
-        case OUTSWING:
-        this->ball_.move(0.5f,0.5f); break;
+        _ball.getBowlerType("SPIN");
+        BowlerType.setString("SPIN");
     }
 }
 
 void playWindow::updateMarker()
 {
+    float x,y;
     ///initialisng random position of marker
-    float x = rand() % 190 + 280;
-    float y = rand() % 200 + 300;
+    if(_ball.BowlerType == "SPIN")
+    {
+        x = rand() % 90 + 340;
+        y = rand() % 140 + 380;
+    }
+    if(_ball.BowlerType == "FAST")
+    {
+        x = rand() % 100 + 325;
+        y = rand() % 210 + 310;
+    }
     this->marker_.setPosition(x,y);
+    _ball.getMarkerPositions(marker_.getPosition().x, marker_.getPosition().y);
 }
 
 void playWindow::update()
@@ -231,6 +231,7 @@ void playWindow::defaultscr(sf::RenderWindow& window)
     wicket.setString("Wickets"+std::to_string(Wickets));
     overs.setString("Overs: "+std::to_string(Overs));
     target.setString("Target: "+std::to_string(chase));
+    sf::Time t1 = sf::seconds(2);
     /// rendering default screen
     window.clear(sf::Color::Green);
     window.draw(pitch_);
@@ -246,26 +247,47 @@ void playWindow::defaultscr(sf::RenderWindow& window)
         window.draw(stump_[i]);
     for(int i=0;i<4;i++)
         window.draw(bail_[i]);
-    window.draw(ball_);
+    window.draw(_ball.Ball);
     window.draw(score);
     window.draw(wicket);
     window.draw(overs);
     window.draw(target);
-    window.draw(Shot);
+    if(BowlerTypeShown == false)
+    {
+        BowlerType.setPosition(350.f,200.f);
+        BowlerType.setCharacterSize(50.f);
+        window.draw(BowlerType);
+    }
+    //window.draw(Shot);
     window.setView(sf::View(sf::Vector2f(400.f,300.f),sf::Vector2f(800.f,600.f)));
     window.draw(tile_);
     window.draw(back);
     window.display();
+    if(BowlerTypeShown == false)
+    {
+        sleep(t1);
+        BowlerTypeShown = true;
+    }
 }
 
 void playWindow::call(unsigned* tgt,sf::RenderWindow& window)
 {
     this->chase = tgt[0];
-    std::cout << "Overs is: " << tgt[1] << std::endl;
     event.key.code = sf::Keyboard::Space;  
     this->initvariables();
     sf::Clock clock;
     gameOver = false;
+    _ball.getMarkerPositions(marker_.getPosition().x, marker_.getPosition().y);
+    updateBowlerType();
+    BowlerTypeShown = false;
+    if(_ball.BowlerType == "FAST")
+    {
+        _ball.updateSwing();
+    }
+    if(_ball.BowlerType == "SPIN")
+    {
+        _ball.updateSpin();
+    }
     while(true)
     {
         while(window.pollEvent(this->event))
@@ -277,68 +299,43 @@ void playWindow::call(unsigned* tgt,sf::RenderWindow& window)
                 return;
             }
         }
-        if((Score >= chase) || (Overs == tgt[1]))
+        if(tgt[1] == 2)
+        {
+            idealWickets = 5;
+        }
+        else if(tgt[1] = 5)
+        {
+            idealWickets = 10;
+        }
+        if((Score >= chase) || (Overs == tgt[1]) || (Wickets==idealWickets))
         {
             gameOver = true;
         }
         BallHitWicket = false; 
         if(gameOver == false)
         {
-            this->defaultscr(window);
-        if(this->ball_.getPosition().y < window.getSize().y)
-        {
-            if(this->ball_.getPosition().y < marker_.getPosition().y)
+            if(_ball.Ball.getPosition().y < window.getSize().y)
             {
-                this->updateBallMovement();
-                if(xupdate == false)
+                this->defaultscr(window);
+                _ball.updateBallMovement();
+                if((_ball.Ball.getPosition().y == marker_.getPosition().y) && (BallHitBat == false))
                 {
-                    x = movementSpeed;
-                    xupdate = true;
-                }
-                if(BallHitBat == true)
-                {
-                    if(keypressed == "G")
-                    {
-                        ball_.move(-x,-x);
-                    }
-                    else if(keypressed == "H")
-                    {
-                        ball_.move(-x*(0.5),-x);
-                    }
-                    else if(keypressed == "K")
-                    {
-                        ball_.move(x*(0.5),-x);
-                    }
-                    else if(keypressed == "L")
-                    {
-                        ball_.move(x,-x);
-                    }
-                    else
-                    {
-                        ball_.move(0.f,-x);
-                    }
-                }
-                
-            }
-            else if(this->ball_.getPosition().y >= marker_.getPosition().y)
-            {
-                if(clockrestarted == false)
-                {
+                  _ball.state = "To Wicket";
+                  if(clockrestarted == false)
+                  {
                     clock.restart();
                     clockrestarted = true;
+                  }
+                  BallHitMark = true;
                 }
-                if(BallHitMark == false)
-                {
-                    SWING = rand() % 3;
-                    BallHitMark = true;
-                }
-                if((BallHitMark == true) && (bat_[1].getGlobalBounds().contains(ball_.getPosition())))
+                if((BallHitMark == true) && (bat_[1].getGlobalBounds().contains(_ball.Ball.getPosition())) && (BallHitWicket == false))
                 {
                     BallHitBat = true;
+                    _ball.state = "Hitted Bat";
+                    _ball.getKeyPressed(keypressed);
                 }
                 if(BallHitBat == true)
                 {
-
                     sf::Time timeelapsed = clock.restart();
                     float x = 520-marker_.getPosition().y;
                     int i;
@@ -352,13 +349,13 @@ void playWindow::call(unsigned* tgt,sf::RenderWindow& window)
                         if(i==0)
                         {
                             Score = Score + 6;
-                            Shot.setString("Previous Shot:6");
+                            Shot.setString("6");
                         }
                         else if(i == 1)
                         {
                             Score = Score + 4;
-                            movementSpeed = movementSpeed*(0.5);
-                            Shot.setString("Previous Shot:4");
+                            _ball.movementSpeed = _ball.movementSpeed*(0.5);
+                            Shot.setString("4");
                         }
                         scoreUpdated = true;
                         }
@@ -370,108 +367,88 @@ void playWindow::call(unsigned* tgt,sf::RenderWindow& window)
                         if(i==0)
                         {
                             Score = Score + 2;
-                            movementSpeed = movementSpeed*(0.25);
-                            Shot.setString("Previous Shot:2");
+                            _ball.movementSpeed = _ball.movementSpeed*(0.25);
+                            Shot.setString("2");
                         }
                         if(i==1)
                         {
                             Score = Score + 1;
-                            movementSpeed = movementSpeed*(0.125);
-                            Shot.setString("Previous Shot:1");
+                            _ball.movementSpeed = _ball.movementSpeed*(0.125);
+                            Shot.setString("1");
                         }
                         scoreUpdated = true;
                         }
                     }
-                    if(keypressed == "G")
-                    {
-                        ball_.move(-movementSpeed,-movementSpeed);
-                    }
-                    else if(keypressed == "H")
-                    {
-                        ball_.move(-(movementSpeed*(0.5)),-movementSpeed);
-                    }
-                    else if(keypressed == "K")
-                    {
-                        ball_.move(movementSpeed*(0.5),-movementSpeed);
-                    }
-                    else if(keypressed == "L")
-                    {
-                        ball_.move(movementSpeed,-movementSpeed);
-                    }
-                    else
-                    {
-                        ball_.move(0.f,-movementSpeed);
-                    }
+                }
+                if(((_ball.Ball.getPosition().y == 550.f) && (_ball.Ball.getPosition().x < 429.f) && (_ball.Ball.getPosition().x > 389.f)) && (BallHitBat == false))
+                {
+                  this->bail_[0].setPosition(369.f,420.f);
+                  this->bail_[1].setPosition(425.f,420.f);
+                  BallHitWicket = true;
+                  if(wicketUpdated == false)
+                  {
+                     Wickets = Wickets + 1;
+                     wicketUpdated = true;
+                  }
+                  Shot.setString("Out");
+                }
+            }
+            if((this->_ball.Ball.getPosition().y >= window.getSize().y) || (this->_ball.Ball.getPosition().y < 0) || (this->_ball.Ball.getPosition().x > window.getSize().x) || (this->_ball.Ball.getPosition().x < 0) || (_ball.Ball.getPosition().x > window.getSize().x))
+            {
+                bool OverCompleted = false;
+                int x = Overs*10;
+                if((x-5) % 10 == 0)
+                {
+                   Overs = (x+5)/10;
+                   OverCompleted = true;
                 }
                 else
                 {
-                    this->updateBallSwing();
-                    if((ball_.getPosition().y > 450.f) && (ball_.getPosition().y < 550.f) && (ball_.getPosition().x < 437.f) && (ball_.getPosition().x > 389.f))
-                    {
-                        this->bail_[0].setPosition(369.f,420.f);
-                        this->bail_[1].setPosition(425.f,420.f);
-                        BallHitWicket = true;
-                        if(wicketUpdated == false)
-                        {
-                            Wickets = Wickets + 1;
-                            wicketUpdated = true;
-                        }
-                    }
+                  Overs = (x+1)/(float)10;
                 }
+                Shot.setPosition(400.f,250.f);
+                Shot.setCharacterSize(50.f);
+                window.draw(Shot);
+                window.display();
+                sf::Time t1 = sf::seconds(2);
+                sleep(t1);
+                if(OverCompleted == true)
+                {
+                    updateBowlerType();
+                    BowlerType.setPosition(350.f,200.f);
+                    BowlerType.setCharacterSize(50.f);
+                    window.draw(BowlerType);
+                    window.display();
+                    sleep(t1);
+                }
+                Shot.setString("0");
+                _ball.Ball.setPosition(450.f,30.f);
+                _ball.state = "To Marker";
+                this->updateMarker();
+                this->bat_[0].setPosition(415.f,440.f);
+                this->bat_[1].setPosition(410.f,460.f);
+                this->batsman_.setPosition(195.f,330.f);
+                this->bail_[0].setPosition(390.f,450.f);
+                this->bail_[1].setPosition(410.f,450.f);
+                if(_ball.BowlerType == "FAST")
+                {
+                  _ball.updateSwing();
+                }
+                else if(_ball.BowlerType == "SPIN")
+                {
+                  _ball.updateSpin();
+                }
+                _ball.updateSwing();
+                BallHitMark = false;
+                wicketUpdated = false;
+                scoreUpdated = false;
+                xupdate = false;
+                BallHitBat = false;
+                _ball.movementSpeed = 8;
+                _ball.theta = 0;
             }
-            
         }
-        else
-        { 
-            int x = Overs*10;
-            if((x-5) % 10 == 0)
-            {
-                Overs = (x-5)/10 + 1;
-            }
-            else
-            {
-                Overs = Overs + 0.1;
-            }
-            this->ball_.setPosition(450.f,30.f);
-            this->updateMarker();
-            this->bat_[0].setPosition(415.f,440.f);
-            this->bat_[1].setPosition(410.f,460.f);
-            this->batsman_.setPosition(195.f,330.f);
-            this->bail_[0].setPosition(390.f,450.f);
-            this->bail_[1].setPosition(410.f,450.f);
-            BallHitMark = false;
-            wicketUpdated = false;
-            scoreUpdated = false;
-            xupdate = false;
-        }
-        if(((this->ball_.getPosition().y < -150.f) || (this->ball_.getPosition().x > window.getSize().x) || (this->ball_.getPosition().x < 0)) && BallHitBat == true)
-        {
-            int x = Overs*10;
-            if((x-5) % 10 == 0)
-            {
-                Overs = (x-5)/10 + 1;
-            }
-            else
-            {
-                Overs = Overs + 0.1;
-            }
-            this->ball_.setFillColor(sf::Color::Red);
-            this->ball_.setPosition(450.f,30.f);
-            BallHitBat = false;
-            this->updateMarker();
-            this->bat_[0].setPosition(415.f,440.f);
-            this->bat_[1].setPosition(410.f,460.f);
-            this->bail_[0].setPosition(390.f,450.f);
-            this->bail_[1].setPosition(410.f,450.f);
-            this->batsman_.setPosition(195.f,330.f);
-            BallHitMark = false;
-            wicketUpdated = false;
-            scoreUpdated = false;
-            xupdate = false;
-            movementSpeed = 5.f;
-        }
-        this->update();
-        }
+
         else
         {
             GameOver.setPosition(300.f,380.f);
@@ -490,7 +467,8 @@ void playWindow::call(unsigned* tgt,sf::RenderWindow& window)
             window.draw(spritebg);
             window.draw(GameOver);
             window.setView(sf::View(sf::Vector2f(960.f,540.f),sf::Vector2f(1920.f,1080.f)));
-            window.display();
+            window.display(); 
         }
+        this->update();
     }
-}
+}        

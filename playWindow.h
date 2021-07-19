@@ -17,6 +17,7 @@ private:
     sf::Text wicket;
     sf::Text target;
     sf::Text GameOver;
+    sf::Text BowlerType;
     sf::Text Shot;
     sf::Font font;
     tile _tile;
@@ -27,7 +28,6 @@ private:
     std::vector<sf::RectangleShape> crease_;
     bat _bat;
     std::vector<sf::RectangleShape> bat_;
-    sf::CircleShape ball_;
     ball _ball;
     batsman _batsman;
     sf::Sprite batsman_;
@@ -40,6 +40,7 @@ private:
     bool gameOver;
     bool wicketUpdated;
     bool scoreUpdated;
+    bool BowlerTypeShown;
     sf::Sprite spritebg;
     sf::Texture texturebg;
     
@@ -49,6 +50,7 @@ private:
     unsigned Score;
     unsigned Wickets;
     float Overs;
+    unsigned idealWickets;
     bool BallHitMark;
     bool BallHitBat;
     bool BallHitWicket;
@@ -62,6 +64,7 @@ public:
     void initvariables();
     void updateBallMovement();
     void updateBallSwing();
+    void updateBowlerType();
     void updateMarker();
     void update();
     void call(unsigned* tgt,sf::RenderWindow& window);

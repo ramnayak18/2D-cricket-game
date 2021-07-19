@@ -1,6 +1,6 @@
 #ifndef _help
 #define _help
-#include "tile.h"
+#include "objects.h"
 class helpWindow
 {
 private:

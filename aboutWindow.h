@@ -1,6 +1,6 @@
 #ifndef _ABOUT
 #define _ABOUT
-#include "tile.h"
+#include "objects.h"
 class aboutWindow
 {
 private:

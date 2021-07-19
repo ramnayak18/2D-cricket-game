@@ -4,7 +4,9 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <cmath>
 enum swing{INSWING=0, STRAIGHT, OUTSWING};
+enum spin{INWARD=0, STRAIGHTWARD, OUTWARD};
 
 class stump
 {
@@ -89,11 +91,24 @@ class bat
 
 class ball
 {
-    sf::CircleShape Ball;
     public:
     /// initialise sprite
+    sf::CircleShape Ball;
     ball();
     std::string state;
+    float x,y;
+    unsigned SWING;
+    unsigned SPIN;
+    float theta;
+    float movementSpeed;
+    std::string BowlerType;
+    void getBowlerType(std::string B);
+    void getMarkerPositions(float MarkerPosx, float MarkerPosy);
+    void updateBallMovement();
+    std::string keypressed;
+    void getKeyPressed(std::string S);
+    void updateSwing();
+    void updateSpin();
     /// function to return ball 
     sf::CircleShape getObject();
 };

@@ -132,10 +132,134 @@ ball::ball()
     
     Ball.setRadius(10.f);
     Ball.setFillColor(sf::Color::Red);
+    theta = 0;
+    movementSpeed = 5;
+    state = "To Marker";
 }
 sf::CircleShape ball::getObject()
 {
     return this->Ball;
+}
+
+void ball::getBowlerType(std::string B)
+{
+    BowlerType = B;
+}
+
+void ball::getKeyPressed(std::string S)
+{
+    keypressed = S;
+}
+
+void ball::getMarkerPositions(float MarkerPosx, float MarkerPosy)
+{
+    x = MarkerPosx;
+    y = MarkerPosy;
+}
+
+void ball::updateSwing()
+{
+    SWING = rand() % 3;
+}
+
+void ball::updateSpin()
+{
+    SPIN = rand() % 3;
+}
+
+void ball::updateBallMovement()
+{
+    if(state == "To Marker")
+    {
+        float x1 = x - this->Ball.getPosition().x;
+        float y1 = y - this->Ball.getPosition().y;
+        if(x1>y1)
+        {
+          float z = y1/(2*x1);
+          this->Ball.move(0.5f,z);
+        }
+        else if(y1>x1)
+        {
+          float z = x1/(2*y1);
+          this->Ball.move(z,0.5f);
+        }
+    }
+
+    if(state == "To Wicket")
+    {
+        if(BowlerType == "FAST")
+        {
+            switch(SWING)
+            {
+              case INSWING:
+              this->Ball.move(-0.5f,0.5f); break;
+              case STRAIGHT:
+              this->Ball.move(0.f,0.5f); break;
+              case OUTSWING:
+              this->Ball.move(0.5f,0.5f); break;
+            }
+        }
+        else if(BowlerType == "SPIN")
+        {
+            switch(SPIN)
+            {
+                case INWARD:
+                {
+                    float x1;
+                    x1 = x - 200.f;
+                    if(theta < 1.57)
+                    {
+                       this->Ball.setPosition(x1+200*cos(theta),y+200*sin(theta));
+                    }
+                    else
+                    {
+                       this->Ball.move(-0.5f,0.5f);
+                    }
+                    theta = theta + 0.002; break;
+                }
+                case STRAIGHTWARD:
+                this->Ball.move(0,0.5f); break;
+                case OUTWARD:
+                {
+                    float x1;
+                    x1 = x + 200.f;
+                    if(theta < 1.57)
+                    {
+                       this->Ball.setPosition(x1-200*cos(theta),y+200*sin(theta));
+                    }
+                    else
+                    {
+                       this->Ball.move(-0.5f,0.5f);
+                    }
+                    theta = theta + 0.005; break;
+                }
+            }
+        }
+    }
+
+    if(state == "Hitted Bat")
+    {
+        if(keypressed == "G")
+        {
+            Ball.move(-movementSpeed,-movementSpeed);
+        }
+        else if(keypressed == "H")
+        {
+            Ball.move(-(movementSpeed*(0.5)),-movementSpeed);
+        }
+        else if(keypressed == "K")
+        {
+            Ball.move(movementSpeed*(0.5),-movementSpeed);
+        }
+        else if(keypressed == "L")
+        {
+            Ball.move(movementSpeed,-movementSpeed);
+        }
+        else
+        {
+            Ball.move(0.f,-movementSpeed);
+        }
+    }
 }
 
 
@@ -148,9 +272,3 @@ sf::RectangleShape bail::getObject() const
 {
     return this->bail1;
 }
-
-
-
-
-
-
