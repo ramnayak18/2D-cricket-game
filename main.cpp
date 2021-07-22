@@ -4,7 +4,7 @@
 #include "playWindow.h"
 #include "aboutWindow.h"
 #include "testobjects.h"
-int main(/*int argc,char** argv*/)
+int main(int argc,char** argv)
 {
     
     /// creating object for window
@@ -36,7 +36,7 @@ int main(/*int argc,char** argv*/)
     About: about.call(*window);
     goto Menu;
     Close: return 0;
-    
+
     //testing::InitGoogleTest(&argc, argv);
     //return RUN_ALL_TESTS();
 }
