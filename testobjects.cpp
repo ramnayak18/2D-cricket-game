@@ -113,11 +113,17 @@ void ToMarkerTest::TearDown()
     delete _marker;
 }
 
-/// PRECONDITION: position of ball on the screen should be above the marker
+/// PRECONDITION: 
+///   -position of ball on the screen is above the marker
+
 /// POSTCONDITION:
 ///   -ball moves in a straight line
 ///   -ball moves from it's current position towards the marker and just crosses it
 ///   -ball moves at a fixed speed
+
+/// PROCESS:
+///   -matches slope of each move of ball with that of the line joining marker and ball
+///   -checks if the ball before it's last move is above the marker
 TEST_F(ToMarkerTest,Test1)
 {
     setPosition(200.f,52.f,251.f,83.f);
@@ -162,4 +168,68 @@ TEST_F(ToMarkerTest,Test3)
         prevY = _ball->Ball.getPosition().y;
     }
     EXPECT_LT(prevY,83.f);
+}
+
+void SpinTest::SetUp()
+{
+    _ball = new ball();
+    _ball->BowlerType = "SPIN";
+    _ball->state = "To Wicket";
+    _ball->x = 242.f;
+    _ball->y = 36.49f;
+    _ball->Ball.setPosition(242.f,36.49f);
+    oldX = 242.f;
+    oldY = 36.49f;
+}
+float SpinTest::dist()
+{
+    return std::sqrt(std::pow(oldX-_ball->Ball.getPosition().x,2)+std::pow(oldY-_ball->Ball.getPosition().y,2));
+}
+void SpinTest::TearDown()
+{
+    delete _ball;
+}
+
+/// PRECONDITION: None
+
+/// POSTCONDITION:
+///   -ball moves just less than a quarter circle
+///   -ball moves in increasing y-direction
+///   -ball moves in increasing x-direction (outward spin) or decreasing x-direction (inward spin)
+///   -ball has fixed speed
+
+/// PROCESS: 
+///   -checks if the distance moved is same each time
+///   -checks if the ball has moved a distance equal to the radius of the circle along both axes
+TEST_F(SpinTest,InwardSpin)
+{
+    _ball->SPIN = spin::INWARD;
+    _ball->theta = 0.002f;
+    _ball->updateBallMovement();
+    Dist = dist();
+    while(_ball->theta<=1.57)
+    {
+        oldX = _ball->Ball.getPosition().x;
+        oldY = _ball->Ball.getPosition().y;
+        _ball->updateBallMovement();
+        ASSERT_NEAR(Dist,dist(),0.001f);
+    }
+    ASSERT_NEAR(242.f-_ball->Ball.getPosition().x,200.f,200*sin(0.002));
+    EXPECT_NEAR(_ball->Ball.getPosition().y-36.49f,200.f,200*sin(0.002));
+}
+TEST_F(SpinTest,OutwardSpin)
+{
+    _ball->SPIN = spin::OUTWARD;
+    _ball->theta = 0.005f;
+    _ball->updateBallMovement();
+    Dist = dist();
+    while(_ball->theta<=1.57)
+    {
+        oldX = _ball->Ball.getPosition().x;
+        oldY = _ball->Ball.getPosition().y;
+        _ball->updateBallMovement();
+        ASSERT_NEAR(Dist,dist(),0.001f);
+    }
+    ASSERT_NEAR(_ball->Ball.getPosition().x-242.f,200.f,200*sin(0.002));
+    EXPECT_NEAR(_ball->Ball.getPosition().y-36.49f,200.f,200*sin(0.002));
 }
