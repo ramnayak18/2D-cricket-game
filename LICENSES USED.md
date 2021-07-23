@@ -39,6 +39,19 @@ Attribution 4.0 International (CC BY 4.0)
 https://creativecommons.org/licenses/by/4.0/
 
 https://www.partnersinrhyme.com/blog/articles/glossary-of-terms-for-licensing-royalty-free-music/
+
+Musics and sound effects are taken from :
+Game Background Music :
+https://www.chosic.com/download-audio/?t=28027&tag=Games
+
+Bat hit ball sound effect :
+https://www.partnersinrhyme.com/soundfx/sports_sounds/sports_bat-hit-ball_wav.shtml
+
+Disappointed Children Sound effect :
+https://elements.envato.com/disappointed-children-shout-aww-7C8GRFL
+
+Happy kids sound effect :
+https://www.partnersinrhyme.com/soundfx/applause_sounds/happykidswav.shtml
 ______________________________________________________________________________________________________________________________________________________________________________
 
 Images License:
@@ -70,11 +83,20 @@ Uses that harm the copyright owner's ability to profit from his or her original 
 
 Any content posted grants Pinterest and its users a “non-exclusive, royalty-free, transferable, sublicensable, worldwide license to use, store, 
 display, reproduce, save, modify, create derivative works, perform, and distribute the user content on the platform.”
+
+Game Background, Cricket Night Background :
+https://in.pinterest.com/pin/658651514238492665/
 ______________________________________________________________________________________________________________________________________________________________________________
 
 License for Message Images : 
 https://www.istockphoto.com/legal/license-agreement?utm_medium=organic&utm_source=google&utm_campaign=iptcurl
 
+Images for Message taken from :
+Cheering kids Background:
+https://www.pngkey.com/maxpic/u2y3q8e6a9y3q8e6/
+
+Sad Kid Background:
+https://www.istockphoto.com/vector/sad-boy-gm1097678342-294778159
 ______________________________________________________________________________________________________________________________________________________________________________ 
 
 Font License :
