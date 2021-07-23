@@ -35,12 +35,10 @@ void menuWindow::reset()
 {
     _tile[0]->state = "Hover";
     _tile[0]->tiles.setFillColor(sf::Color::Red);
-    _tile[0]->updateColor();
     for(int i=1;i<4;i++)
     {
         _tile[i]->state = "NULL";
         _tile[i]->updateColor();
-        _tile[i]->tiles.setFillColor(sf::Color::Yellow);
     }
     event.key.code = sf::Keyboard::Space;
 }
@@ -122,3 +120,4 @@ jump_t menuWindow::call(sf::RenderWindow& window)
         }
     }
 }
+// main.o playWindow.o aboutWindow.o helpWindow.o menuWindow.o levels_Window.o objects.o

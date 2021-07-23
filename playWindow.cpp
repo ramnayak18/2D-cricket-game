@@ -8,9 +8,51 @@ void playWindow::initvariables()
 {
     this->texturebg.loadFromFile("Background/bg.jpg");
     this->spritebg.setTexture(this->texturebg);
+    this->texturefour.loadFromFile("Textures/Four Message.png");
+    this->spritefour.setTexture(this->texturefour);
+    this->texturesix.loadFromFile("Textures/Six message.png");
+    this->spritesix.setTexture(this->texturesix);
+    this->texturewicket.loadFromFile("Textures/Wicket message.jpg");
+    this->spritewicket.setTexture(this->texturewicket);
+    this->texturelost.loadFromFile("Textures/Lost message.jpg");
+    this->spritelost.setTexture(this->texturelost);
+    this->texturewon.loadFromFile("Textures/Winning Message.png");
+    this->spritewon.setTexture(this->texturewon);
+    if(!this->bathitballbuffer.loadFromFile("Sounds/bat_hit_ball.ogg"))
+    {
+        std::cout << "Error!" << std::endl;
+    }
+    this->bathitballsound.setBuffer(bathitballbuffer);
+    if(!this->KidsCheersbuffer.loadFromFile("Sounds/Kids Cheers.ogg"))
+    {
+        std::cout << "Error!" << std::endl;
+    }
+    this->KidsCheerssound.setBuffer(KidsCheersbuffer);
+    if(!this->disappointedchildrenbuffer.loadFromFile("Sounds/disappointed-children.ogg"))
+    {
+        std::cout << "Error!" << std::endl;
+    }
+    this->disappointedchildrensound.setBuffer(disappointedchildrenbuffer);
+
+
     sf::Vector2u bgsize=this->texturebg.getSize();
+    sf::Vector2u foursize=this->texturefour.getSize();
+    sf::Vector2u sixsize=this->texturesix.getSize();
+    sf::Vector2u wicketsize=this->texturewicket.getSize();
+    sf::Vector2u lostsize=this->texturelost.getSize();
+    sf::Vector2u wonsize=this->texturewon.getSize();
     spritebg.setScale(1920/static_cast<float>(bgsize.x),1080/static_cast<float>(bgsize.y));
+    spritefour.setScale(400/static_cast<float>(foursize.x),300/static_cast<float>(foursize.y));
+    spritesix.setScale(400/static_cast<float>(sixsize.x),300/static_cast<float>(sixsize.y));
+    spritewicket.setScale(400/static_cast<float>(wicketsize.x),300/static_cast<float>(wicketsize.y));
+    spritelost.setScale(1920/static_cast<float>(lostsize.x),1080/static_cast<float>(lostsize.y));
+    spritewon.setScale(1920/static_cast<float>(wonsize.x),1080/static_cast<float>(wonsize.y));
     spritebg.setPosition(0.f,0.f);
+    spritefour.setPosition(350.f,150.f);
+    spritesix.setPosition(350.f,150.f);
+    spritewicket.setPosition(390.f,120.f);
+    spritelost.setPosition(0.f,0.f);
+    spritewon.setPosition(0.f,0.f);
     /// position the crease
     this->crease_ = this->_crease.getObject();
     (*this->crease_.begin()).setPosition(198.f,520.f);
@@ -121,6 +163,7 @@ void playWindow::initvariables()
     scoreUpdated = false;
     clockrestarted = false;
     BowlerTypeShown = false;
+    soundplayed = false;
 }
 
 void playWindow::updateBowlerType()
@@ -177,58 +220,81 @@ void playWindow::update()
         }
         keypressed = "D";
     }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::G))
     {
         this->batsman_.move(-0.05f,-0.05f);
         for(int i=0;i<2;i++)
         {
             this->bat_[i].move(-0.05f,-0.05f);
         }
-        keypressed = "Q";
+        keypressed = "G";
     }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::H))
     {
         this->batsman_.move(-0.025f,-0.05f);
         for(int i=0;i<2;i++)
         {
             this->bat_[i].move(-0.025f,-0.05f);
         }
-        keypressed = "W";
+        keypressed = "H";
     }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::J))
     {
         this->batsman_.move(0.f,-0.05f);
         for(int i=0;i<2;i++)
         {
             this->bat_[i].move(0.f,-0.05f);
         }
-        keypressed = "E";
+        keypressed = "J";
     }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::K))
     {   
         this->batsman_.move(0.025f,-0.05f);
         for(int i=0;i<2;i++)
         {
             this->bat_[i].move(0.025f,-0.05f);
         }
-        keypressed = "R";
+        keypressed = "K";
     }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::T))
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::L))
     {
         this->batsman_.move(0.05f,-0.05f);
         for(int i=0;i<2;i++)
         {
             this->bat_[i].move(0.05f,-0.05f);
         }
-        keypressed = "T";
+        keypressed = "L";
     }
+}
+
+void playWindow::renderwelcome(sf::RenderWindow& window)
+{
+    this->texturewelcome.loadFromFile("Background/welcome.png");
+    this->spritewelcome.setTexture(this->texturewelcome);
+    sf::Vector2u welcomesize=this->texturewelcome.getSize();
+    spritewelcome.setScale(1920/static_cast<float>(welcomesize.x),1080/static_cast<float>(welcomesize.y));
+    spritewelcome.setPosition(0.f,0.f);
+    window.clear(sf::Color::Magenta);
+    window.draw(spritewelcome);
+    window.setView(sf::View(sf::Vector2f(960.f,540.f),sf::Vector2f(1920.f,1080.f)));
+    window.display();
+    sf::Time t1 = sf::seconds(2);
+    sleep(t1);
+}
+
+
+void playWindow::startmusic()
+{
+    music.openFromFile("Sounds/Game Music.ogg");
+    music.play();
+    music.setLoop(true);
 }
 
 void playWindow::defaultscr(sf::RenderWindow& window)
 {
     /// resetting scores, overs and targets
     score.setString("Score: "+std::to_string(Score));
-    wicket.setString("Wickets"+std::to_string(Wickets));
+    wicket.setString("Wickets: "+std::to_string(Wickets));
     overs.setString("Overs: "+std::to_string(Overs));
     target.setString("Target: "+std::to_string(chase));
     sf::Time t1 = sf::seconds(2);
@@ -336,6 +402,11 @@ void playWindow::call(unsigned* tgt,sf::RenderWindow& window)
                 }
                 if(BallHitBat == true)
                 {
+                    if(soundplayed == false)
+                    {
+                        bathitballsound.play();
+                        soundplayed = true;
+                    }
                     sf::Time timeelapsed = clock.restart();
                     float x = 520-marker_.getPosition().y;
                     int i;
@@ -408,6 +479,21 @@ void playWindow::call(unsigned* tgt,sf::RenderWindow& window)
                 }
                 Shot.setPosition(400.f,250.f);
                 Shot.setCharacterSize(50.f);
+                if(Shot.getString() == "4")
+                {
+                    window.draw(this->spritefour);
+                    KidsCheerssound.play();
+                }
+                if(Shot.getString() == "6")
+                {
+                    window.draw(this->spritesix);
+                    KidsCheerssound.play();
+                }
+                if(Shot.getString() == "Out")
+                {
+                    window.draw(this->spritewicket);
+                    disappointedchildrensound.play();
+                }
                 window.draw(Shot);
                 window.display();
                 sf::Time t1 = sf::seconds(2);
@@ -444,6 +530,7 @@ void playWindow::call(unsigned* tgt,sf::RenderWindow& window)
                 scoreUpdated = false;
                 xupdate = false;
                 BallHitBat = false;
+                soundplayed = false;
                 _ball.movementSpeed = 8;
                 _ball.theta = 0;
             }
@@ -451,21 +538,15 @@ void playWindow::call(unsigned* tgt,sf::RenderWindow& window)
 
         else
         {
-            GameOver.setPosition(300.f,380.f);
-            GameOver.setCharacterSize(120);
-            GameOver.setFont(this->font); 
-            GameOver.setFillColor(sf::Color::Yellow);
+            window.clear(sf::Color::Blue);
             if(Score >= chase)
             {
-                GameOver.setString("Good Game Champ! \nYou saved the children");
+                window.draw(spritewon);
             }
             else
             {
-                GameOver.setString("Bad luck Champ \nChildren lost their ground");
+                window.draw(spritelost);
             }
-            window.clear();
-            window.draw(spritebg);
-            window.draw(GameOver);
             window.setView(sf::View(sf::Vector2f(960.f,540.f),sf::Vector2f(1920.f,1080.f)));
             window.display(); 
         }

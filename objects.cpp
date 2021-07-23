@@ -239,19 +239,19 @@ void ball::updateBallMovement()
 
     if(state == "Hitted Bat")
     {
-        if(keypressed == "Q")
+        if(keypressed == "G")
         {
             Ball.move(-movementSpeed,-movementSpeed);
         }
-        else if(keypressed == "W")
+        else if(keypressed == "H")
         {
             Ball.move(-(movementSpeed*(0.5)),-movementSpeed);
         }
-        else if(keypressed == "R")
+        else if(keypressed == "K")
         {
             Ball.move(movementSpeed*(0.5),-movementSpeed);
         }
-        else if(keypressed == "T")
+        else if(keypressed == "L")
         {
             Ball.move(movementSpeed,-movementSpeed);
         }
