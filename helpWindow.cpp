@@ -11,7 +11,8 @@ helpWindow::helpWindow()
 
     /// setting up back button
     tile_ = _tile.getObject();
-    tile_.setPosition(1300.f,900.f);
+    tile_.setScale(0.7f,0.7f);
+    tile_.setPosition(1500.f,952.f);
     tile_.setOutlineColor(sf::Color::Green);
     tile_.setFillColor(sf::Color::Red);
 
@@ -19,9 +20,9 @@ helpWindow::helpWindow()
     font.loadFromFile("Fonts/LibreBaskerville-Italic.ttf");
     back.setFillColor(sf::Color::Blue);
     back.setString("Back(Esc)");
-    back.setCharacterSize(55);
+    back.setCharacterSize(38);
     back.setFont(font);
-    back.setPosition(1400.f,950.f);
+    back.setPosition(1580.f,976.f);
 }
 void helpWindow::call(sf::RenderWindow& window)
 {
