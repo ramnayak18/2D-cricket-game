@@ -48,9 +48,9 @@ void playWindow::initvariables()
     spritelost.setScale(1920/static_cast<float>(lostsize.x),1080/static_cast<float>(lostsize.y));
     spritewon.setScale(1920/static_cast<float>(wonsize.x),1080/static_cast<float>(wonsize.y));
     spritebg.setPosition(0.f,0.f);
-    spritefour.setPosition(350.f,150.f);
-    spritesix.setPosition(350.f,150.f);
-    spritewicket.setPosition(390.f,120.f);
+    spritefour.setPosition(250.f,150.f);
+    spritesix.setPosition(250.f,150.f);
+    spritewicket.setPosition(250.f,150.f);
     spritelost.setPosition(0.f,0.f);
     spritewon.setPosition(0.f,0.f);
     /// position the crease
@@ -220,50 +220,50 @@ void playWindow::update()
         }
         keypressed = "D";
     }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::G))
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
     {
         this->batsman_.move(-0.05f,-0.05f);
         for(int i=0;i<2;i++)
         {
             this->bat_[i].move(-0.05f,-0.05f);
         }
-        keypressed = "G";
+        keypressed = "Q";
     }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::H))
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
     {
         this->batsman_.move(-0.025f,-0.05f);
         for(int i=0;i<2;i++)
         {
             this->bat_[i].move(-0.025f,-0.05f);
         }
-        keypressed = "H";
+        keypressed = "W";
     }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::J))
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))
     {
         this->batsman_.move(0.f,-0.05f);
         for(int i=0;i<2;i++)
         {
             this->bat_[i].move(0.f,-0.05f);
         }
-        keypressed = "J";
+        keypressed = "E";
     }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::K))
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::R))
     {   
         this->batsman_.move(0.025f,-0.05f);
         for(int i=0;i<2;i++)
         {
             this->bat_[i].move(0.025f,-0.05f);
         }
-        keypressed = "K";
+        keypressed = "R";
     }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::L))
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::T))
     {
         this->batsman_.move(0.05f,-0.05f);
         for(int i=0;i<2;i++)
         {
             this->bat_[i].move(0.05f,-0.05f);
         }
-        keypressed = "L";
+        keypressed = "T";
     }
 }
 
@@ -481,16 +481,19 @@ void playWindow::call(unsigned* tgt,sf::RenderWindow& window)
                 Shot.setCharacterSize(50.f);
                 if(Shot.getString() == "4")
                 {
+                    Shot.setPosition(400.f,500.f);
                     window.draw(this->spritefour);
                     KidsCheerssound.play();
                 }
                 if(Shot.getString() == "6")
                 {
+                    Shot.setPosition(400.f,500.f);
                     window.draw(this->spritesix);
                     KidsCheerssound.play();
                 }
                 if(Shot.getString() == "Out")
                 {
+                    Shot.setPosition(400.f,500.f);
                     window.draw(this->spritewicket);
                     disappointedchildrensound.play();
                 }
