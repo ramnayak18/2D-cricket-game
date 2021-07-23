@@ -12,6 +12,7 @@ enum spin{INWARD=0, STRAIGHTWARD, OUTWARD};
 /// @file objects.h
 /// @brief creates and returns objects to be used on screen, and ensapsulates state of the marker and ball
 
+/// @brief creates and returns stump
 class stump
 {
     sf::RectangleShape stump1;
@@ -22,6 +23,7 @@ public:
     sf::RectangleShape getObject() const;
 };
 
+/// @brief creates and supplies buttons, manages button states
 class tile
 {
     public:
@@ -42,6 +44,7 @@ class tile
     void updateColor();
 };
 
+/// @brief creates and returns pitch
 class pitch 
 {
     sf::ConvexShape pitch1;
@@ -52,6 +55,7 @@ class pitch
     sf::ConvexShape getObject() const;
 };
 
+/// @brief creates and returns markers
 class marker
 {
     sf::CircleShape Marker;
@@ -64,6 +68,7 @@ class marker
     sf::CircleShape getObject() const;
 };
 
+/// @brief creates and returns crease for the pitch
 class crease
 {
     std::vector<sf::RectangleShape> lines;
@@ -77,6 +82,7 @@ class crease
     std::vector<sf::RectangleShape> getObject() const;
 };
 
+/// @brief creates and returns batsman
 class batsman
 {
     sf::Sprite spritebatsman;
@@ -88,6 +94,7 @@ class batsman
     sf::Sprite getObject();
 };
 
+/// @brief creates and returns bat
 class bat
 {
     sf::RectangleShape Bat;
@@ -99,6 +106,7 @@ class bat
     std::vector<sf::RectangleShape> getObject() const;
 };
 
+/// @brief creates and supplies balls, manages ball states and ball movements
 class ball
 {
     public:
@@ -152,6 +160,7 @@ class ball
     sf::CircleShape getObject();
 };
 
+/// @brief creates and returns bail
 class bail
 {
     sf::RectangleShape bail1;
