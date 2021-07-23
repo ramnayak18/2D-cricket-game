@@ -1,6 +1,7 @@
 #ifndef _OBJECTS_H
 #define _OBJECTS_H
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <vector>
 #include <iostream>
 #include <string>

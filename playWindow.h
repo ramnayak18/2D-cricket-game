@@ -43,6 +43,25 @@ private:
     bool BowlerTypeShown;
     sf::Sprite spritebg;
     sf::Texture texturebg;
+    sf::Sprite spritefour;
+    sf::Texture texturefour;
+    sf::Sprite spritesix;
+    sf::Texture texturesix;
+    sf::Sprite spritewicket;
+    sf::Texture texturewicket;
+    sf::Sprite spritelost;
+    sf::Texture texturelost;
+    sf::Sprite spritewon;
+    sf::Texture texturewon;
+    sf::Sprite spritewelcome;
+    sf::Texture texturewelcome;
+    sf::SoundBuffer bathitballbuffer;
+    sf::SoundBuffer KidsCheersbuffer;
+    sf::SoundBuffer disappointedchildrenbuffer;
+    sf::Sound bathitballsound;
+    sf::Sound KidsCheerssound;
+    sf::Sound disappointedchildrensound;
+    sf::Music music;
     
     /// game logic variables
     unsigned chase;  
@@ -57,6 +76,7 @@ private:
     bool clockrestarted;
     float x;
     bool xupdate;
+    bool soundplayed;
     std::string keypressed;
 public:
     void defaultscr(sf::RenderWindow& window);
@@ -65,6 +85,8 @@ public:
     void updateBallMovement();
     void updateBallSwing();
     void updateBowlerType();
+    void renderwelcome(sf::RenderWindow& window);
+    void startmusic();
     void updateMarker();
     void update();
     void call(unsigned* tgt,sf::RenderWindow& window);

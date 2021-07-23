@@ -178,11 +178,6 @@ void ball::updateBallMovement()
           float z = y1/(2*x1);
           this->Ball.move(0.5f,z);
         }
-        else if(-x1>y1)
-        {
-            float z = y1/(2*x1);
-            Ball.move(-0.5f,-z);
-        }
         else if(y1>x1)
         {
           float z = x1/(2*y1);
@@ -244,19 +239,19 @@ void ball::updateBallMovement()
 
     if(state == "Hitted Bat")
     {
-        if(keypressed == "Q")
+        if(keypressed == "G")
         {
             Ball.move(-movementSpeed,-movementSpeed);
         }
-        else if(keypressed == "W")
+        else if(keypressed == "H")
         {
             Ball.move(-(movementSpeed*(0.5)),-movementSpeed);
         }
-        else if(keypressed == "R")
+        else if(keypressed == "K")
         {
             Ball.move(movementSpeed*(0.5),-movementSpeed);
         }
-        else if(keypressed == "T")
+        else if(keypressed == "L")
         {
             Ball.move(movementSpeed,-movementSpeed);
         }

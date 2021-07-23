@@ -3,21 +3,20 @@
 #include "levelsWindow.h"
 #include "playWindow.h"
 #include "aboutWindow.h"
-#include "testobjects.h"
-int main(int argc,char** argv)
+int main()
 {
-    
     /// creating object for window
     sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(),"Crazy Cricketing Champs",sf::Style::Fullscreen);
-
+    
     /// creating objects for the various windows
     helpWindow help;
     menuWindow menu;
     levelsWindow levels;
     playWindow play;
     aboutWindow about;
-
     unsigned* arr;
+    play.startmusic();
+    play.renderwelcome(*window);
     /// switching between the various windows
     jump_t jumpTo;
     Menu: jumpTo = menu.call(*window);
@@ -36,7 +35,4 @@ int main(int argc,char** argv)
     About: about.call(*window);
     goto Menu;
     Close: return 0;
-
-    //testing::InitGoogleTest(&argc, argv);
-    //return RUN_ALL_TESTS();
 }
