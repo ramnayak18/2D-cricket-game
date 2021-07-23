@@ -23,6 +23,14 @@ either version 3 of the License, or (at your option) any later version.
 https://www.gnu.org/licenses/gpl-3.0.html
 ______________________________________________________________________________________________________________________________________________________________________________
 
+Doxygen license
+Copyright © 1997-2021 by Dimitri van Heesch.
+Permission to use, copy, modify, and distribute this software and its documentation under the terms of the GNU General Public License is hereby granted. No representations are made about the suitability of this software for any purpose. It is provided "as is" without express or implied warranty. See the GNU General Public License for more details.
+
+Documents produced by doxygen are derivative works derived from the input used in their production; they are not affected by this license.
+https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+______________________________________________________________________________________________________________________________________________________________________________
+
 Music License : 
 
 Adventure by Alexander Nakarada | https://www.serpentsoundstudios.com
@@ -80,4 +88,4 @@ Copyright (c) 2012, Rodrigo Fuenzalida (www.rfuenzalida.com|hello�rfuenzalida.
 This Font Software is licensed under the SIL Open Font License, Version 1.1.
 ______________________________________________________________________________________________________________________________________________________________________________
 
----------------------------------------------------------X--------------------------X-------------------------X---------------------------------------------------------------
+               - -------------------------------------X--------------------------X-------------------------X---------------------------------
