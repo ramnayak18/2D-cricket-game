@@ -278,7 +278,7 @@ void playWindow::renderwelcome(sf::RenderWindow& window)
     window.draw(spritewelcome);
     window.setView(sf::View(sf::Vector2f(960.f,540.f),sf::Vector2f(1920.f,1080.f)));
     window.display();
-    sf::Time t1 = sf::seconds(2);
+    sf::Time t1 = sf::seconds(4);
     sleep(t1);
 }
 
