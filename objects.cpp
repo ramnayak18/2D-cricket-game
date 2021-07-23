@@ -178,6 +178,11 @@ void ball::updateBallMovement()
           float z = y1/(2*x1);
           this->Ball.move(0.5f,z);
         }
+        else if(-x1>y1)
+        {
+            float z = y1/(2*x1);
+            Ball.move(-0.5f,-z);
+        }
         else if(y1>x1)
         {
           float z = x1/(2*y1);
