@@ -9,27 +9,36 @@
 enum swing{INSWING=0, STRAIGHT, OUTSWING};
 enum spin{INWARD=0, STRAIGHTWARD, OUTWARD};
 
+/// @file objects.h
+/// @brief creates and returns objects to be used on screen, and ensapsulates state of the marker and ball
+
 class stump
 {
     sf::RectangleShape stump1;
 public:
-    /// initialise wicket
+    /// @brief sets size and color of a single wicket
     stump();
-    /// function to return wicket
+    /// @return a single rectangle-shaped wicket
     sf::RectangleShape getObject() const;
 };
 
 class tile
 {
     public:
+    /// @brief stores the button
     sf::ConvexShape tiles;
-    /// initialise tile
+    /// @brief creates a flag-shaped button with yellow color and white outline, initialises button state as "NULL"
     tile();
+    /// @brief stores text displayed on button 
     sf::Text text;
+    /// @brief stores button state - "NULL" or "Hover"
     std::string state;
-    /// function to return tile 
+    /// @return the button 
     sf::ConvexShape getObject();
+    /// @brief stores the accepted text in tile::text
+    /// @param Text accepts the text for the button
     void setText(sf::Text Text);
+    /// @brief changes button's fill colour based on it's state (green for "Hover" and yellow for "NULL")
     void updateColor();
 };
 
@@ -37,9 +46,9 @@ class pitch
 {
     sf::ConvexShape pitch1;
     public:
-    /// initialise pitch
+    /// @brief creates a convex shaped cricket pitch brown in colour
     pitch();
-    /// function to return pitch
+    /// @return the cricket pitch
     sf::ConvexShape getObject() const;
 };
 
@@ -49,9 +58,9 @@ class marker
     
     public:
 
-    /// initialise marker
+    /// @brief creates a circular white marker
     marker();
-    /// function to return marker
+    /// @return the marker
     sf::CircleShape getObject() const;
 };
 
@@ -62,9 +71,9 @@ class crease
     
     public:
 
-    /// initialise crease
+    /// @brief creates a vector of rectangular shapes to be used as crease
     crease();
-    /// function to return crease
+    /// @return the vector of rectangular shapes to be used as crease
     std::vector<sf::RectangleShape> getObject() const;
 };
 
@@ -73,9 +82,9 @@ class batsman
     sf::Sprite spritebatsman;
     sf::Texture texturebatsman;
     public:
-    /// initialise sprite
+    /// @brief loads sprite of batsman
     batsman();
-    /// function to return batsman 
+    /// @return the sprite of batsman
     sf::Sprite getObject();
 };
 
@@ -84,33 +93,62 @@ class bat
     sf::RectangleShape Bat;
     std::vector<sf::RectangleShape> Bats;
     public:
-    /// initialise sprite
+    /// @brief creates a cricket bat as a vector of two rectangles
     bat();
-    /// function to return bat 
+    /// @return the cricket bat as a vector of two rectangles
     std::vector<sf::RectangleShape> getObject() const;
 };
 
 class ball
 {
     public:
-    /// initialise sprite
+    /// @brief stores the ball
     sf::CircleShape Ball;
+    /// @brief creates a ball and initialises ball::state, ball::movementSpeed and ball::theta with their default values
     ball();
+    /// @brief stores ball's state - "To Marker"/"To Wicket"/"Hitted Bat"
     std::string state;
-    float x,y;
+    /// @brief stores marker's x coordinate
+    /// @see ball::getMarkerPositions(float,float)
+    float x;
+    /// @brief stores marker's y coordinate
+    /// @see ball::getMarkerPositions(float,float)
+    float y;
+    /// @brief stores swing type - INSWING/OUTSWING/STRAIGHT
+    /// @see ball::updateSwing() 
     unsigned SWING;
+    /// @brief stores spin type - INWARD/OUTWARD/STRAIGHTWARD
+    /// @see ball::updateSpin()
     unsigned SPIN;
+    /// @brief stores angle by which spin ball has turned in INWARD/OUTWARD spin
+    /// @see ball::SPIN
     float theta;
+    /// @brief stores ball's speed after being hit by the player
     float movementSpeed;
+    /// @brief stores bowler type - "SPIN"/"FAST"
     std::string BowlerType;
+    /// @brief updates ball::BowlerType
+    /// @param B accepts bowler type
     void getBowlerType(std::string B);
+    /// @brief updates the values of ball::x and ball::y
+    /// @param MarkerPosx accepts marker's x-coordinate
+    /// @param MarkerPosy accepts marker's y-coordinate
     void getMarkerPositions(float MarkerPosx, float MarkerPosy);
+    /// @brief moves the ball according to its ball::state\n
+    /// "To Marker" - moves the ball towards the marker at a fixed speed\n
+    /// "To Wicket" - spins/swings the ball towards the batsman\n
+    /// "Hitted Bat" - rebounds the ball after being hit in a direction depending upon the key pressed and with a speed depending upon the time taken to hit the ball
     void updateBallMovement();
+    /// @brief stores the key pressed to move batsman
     std::string keypressed;
+    /// @brief updates the value of ball::keypressed
+    /// @param S accepts the key pressed to move batsman
     void getKeyPressed(std::string S);
+    /// @brief stores a random swing type in ball::SWING
     void updateSwing();
+    /// @brief stores a random spin type in ball::SPIN
     void updateSpin();
-    /// function to return ball 
+    /// @return the ball
     sf::CircleShape getObject();
 };
 
@@ -118,9 +156,9 @@ class bail
 {
     sf::RectangleShape bail1;
     public:
-    /// initialise bail
+    /// @brief creates a single rectangle-shaped white-coloured bail
     bail();
-    /// function to return bail
+    /// @return a single bail
     sf::RectangleShape getObject() const;
 };
 

@@ -122,4 +122,3 @@ jump_t menuWindow::call(sf::RenderWindow& window)
         }
     }
 }
-// main.o playWindow.o aboutWindow.o helpWindow.o menuWindow.o levels_Window.o objects.o
