@@ -2,7 +2,6 @@
 
 tile::tile()
 {
-    /// initialising the tile
     tiles.setPointCount(4);
     tiles.setPoint(0,sf::Vector2f(0.f,0.f));
     tiles.setPoint(1,sf::Vector2f(500.f,0.f));
@@ -48,7 +47,6 @@ sf::RectangleShape stump::getObject() const
 
 pitch::pitch()
 {
-    /// initialising the pitch
     pitch1.setPointCount(4);
     pitch1.setPoint(0,sf::Vector2f(190,560));
     pitch1.setPoint(1,sf::Vector2f(630,560));
@@ -63,7 +61,6 @@ sf::ConvexShape pitch::getObject() const
 
 marker::marker()
 {
-    /// initialising the marker
     this->Marker.setPosition(300.f,200.f);
     this->Marker.setFillColor(sf::Color::White);
     this->Marker.setRadius(5.f);
@@ -97,12 +94,10 @@ std::vector<sf::RectangleShape> crease::getObject() const
 
 batsman::batsman()
 {
-    /// loading texture from file
     if(!this->texturebatsman.loadFromFile("Textures/batsman.png"))
     {
         std::cout << "ERROR::OBJECTS::BATSMAN::BATSMAN::Could not load texture file." << "\n";
     }
-    /// setting texture to the sprite
     this->spritebatsman.setTexture(this->texturebatsman);
     spritebatsman.setScale(0.7f,0.7f);
 }
