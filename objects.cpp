@@ -133,7 +133,7 @@ ball::ball()
     Ball.setRadius(10.f);
     Ball.setFillColor(sf::Color::Red);
     theta = 0;
-    movementSpeed = 5;
+    movementSpeed = 12;
     state = "To Marker";
 }
 sf::CircleShape ball::getObject()

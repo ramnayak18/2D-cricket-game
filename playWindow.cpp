@@ -544,7 +544,7 @@ void playWindow::call(unsigned* tgt,sf::RenderWindow& window)
                 xupdate = false;
                 BallHitBat = false;
                 soundplayed = false;
-                _ball.movementSpeed = 8;
+                _ball.movementSpeed = 12;
                 _ball.theta = 0;
             }
         }
