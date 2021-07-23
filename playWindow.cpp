@@ -394,7 +394,8 @@ void playWindow::call(unsigned* tgt,sf::RenderWindow& window)
             {
                 this->defaultscr(window,tgt);
                 _ball.updateBallMovement();
-                if((_ball.Ball.getPosition().y == marker_.getPosition().y) && (BallHitBat == false))
+                float x = marker_.getPosition().y;
+                if(((_ball.Ball.getPosition().y>x-5) && (_ball.Ball.getPosition().y<x+5)) && (BallHitBat == false))
                 {
                   _ball.state = "To Wicket";
                   if(clockrestarted == false)
@@ -404,7 +405,8 @@ void playWindow::call(unsigned* tgt,sf::RenderWindow& window)
                   }
                   BallHitMark = true;
                 }
-                if((BallHitMark == true) && (bat_[1].getGlobalBounds().contains(_ball.Ball.getPosition())) && (BallHitWicket == false))
+
+                if((bat_[1].getGlobalBounds().contains(_ball.Ball.getPosition())) && (BallHitWicket == false))
                 {
                     BallHitBat = true;
                     _ball.state = "Hitted Bat";
@@ -473,19 +475,32 @@ void playWindow::call(unsigned* tgt,sf::RenderWindow& window)
                   }
                   Shot.setString("Out");
                 }
+                if(scoreUpdated == false)
+                {
+                    sf::Vector2f creasepos1 = (*(this->crease_.begin()+2)).getPosition();
+                    sf::Vector2f creasepos2 = (*(this->crease_.begin()+3)).getPosition();
+                    if((_ball.Ball.getPosition().y == creasepos1.y) && ((_ball.Ball.getPosition().x >= creasepos2.x) || (_ball.Ball.getPosition().x <= creasepos1.x)))
+                   {
+                      Shot.setString("Wide");
+                      Score = Score + 1;
+                   }
+                }
             }
             if((this->_ball.Ball.getPosition().y >= window.getSize().y) || (this->_ball.Ball.getPosition().y < 0) || (this->_ball.Ball.getPosition().x > window.getSize().x) || (this->_ball.Ball.getPosition().x < 0) || (_ball.Ball.getPosition().x > window.getSize().x))
             {
                 bool OverCompleted = false;
                 int x = Overs*10;
-                if((x-5) % 10 == 0)
+                if(!(Shot.getString() == "Wide"))
                 {
-                   Overs = (x+5)/10;
-                   OverCompleted = true;
-                }
+                    if((x-5) % 10 == 0)
+                    {
+                      Overs = (x+5)/10;
+                      OverCompleted = true;
+                    }
                 else
                 {
                   Overs = (x+1)/(float)10;
+                }
                 }
                 Shot.setPosition(400.f,250.f);
                 Shot.setCharacterSize(50.f);
@@ -544,7 +559,7 @@ void playWindow::call(unsigned* tgt,sf::RenderWindow& window)
                 xupdate = false;
                 BallHitBat = false;
                 soundplayed = false;
-                _ball.movementSpeed = 12;
+                _ball.movementSpeed = 8;
                 _ball.theta = 0;
             }
         }

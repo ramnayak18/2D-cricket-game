@@ -133,7 +133,7 @@ ball::ball()
     Ball.setRadius(10.f);
     Ball.setFillColor(sf::Color::Red);
     theta = 0;
-    movementSpeed = 12;
+    movementSpeed = 8;
     state = "To Marker";
 }
 sf::CircleShape ball::getObject()
@@ -175,18 +175,27 @@ void ball::updateBallMovement()
         float y1 = y - this->Ball.getPosition().y;
         if(x1>y1)
         {
-          float z = y1/(2*x1);
-          this->Ball.move(0.5f,z);
+          float z = (2*y1)/x1;
+          this->Ball.move(2.f,z);
         }
         else if(-x1>y1)
         {
-            float z = y1/(2*x1);
-            Ball.move(-0.5f,-z);
+            float z = (2*y1)/x1;
+            Ball.move(-2.f,-z);
         }
         else if(y1>x1)
         {
-          float z = x1/(2*y1);
-          this->Ball.move(z,0.5f);
+          float z = (2*x1)/(y1);
+          this->Ball.move(z,2.f);
+        }
+        else if(x1=y1)
+        {
+            this->Ball.move(2.f,2.f);
+        }
+        else
+        {
+            std::cout << "Error!" << std::endl;
+            std::cout << x1 << ":" << y1;
         }
     }
 
@@ -197,11 +206,11 @@ void ball::updateBallMovement()
             switch(SWING)
             {
               case INSWING:
-              this->Ball.move(-0.5f,0.5f); break;
+              this->Ball.move(-2.f,2.f); break;
               case STRAIGHT:
-              this->Ball.move(0.f,0.5f); break;
+              this->Ball.move(0.f,2.f); break;
               case OUTSWING:
-              this->Ball.move(0.5f,0.5f); break;
+              this->Ball.move(2.f,2.f); break;
             }
         }
         else if(BowlerType == "SPIN")
@@ -218,12 +227,12 @@ void ball::updateBallMovement()
                     }
                     else
                     {
-                       this->Ball.move(-0.5f,0.5f);
+                       this->Ball.move(-2.f,2.f);
                     }
                     theta = theta + 0.002; break;
                 }
                 case STRAIGHTWARD:
-                this->Ball.move(0,0.5f); break;
+                this->Ball.move(0,2.f); break;
                 case OUTWARD:
                 {
                     float x1;
@@ -234,7 +243,7 @@ void ball::updateBallMovement()
                     }
                     else
                     {
-                       this->Ball.move(-0.5f,0.5f);
+                       this->Ball.move(-2.f,2.f);
                     }
                     theta = theta + 0.005; break;
                 }
