@@ -1,20 +1,17 @@
 #include "aboutWindow.h"
 aboutWindow::aboutWindow()
 {
-    /// setting up about background
     this->texturebg.loadFromFile("Background/aboutbg.jpg");
     this->spritebg.setTexture(this->texturebg);
     sf::Vector2u bgsize=this->texturebg.getSize();
     spritebg.setScale(1920/static_cast<float>(bgsize.x),1080/static_cast<float>(bgsize.y));
     spritebg.setPosition(0.f,0.f);
 
-    /// setting up back button
     tile_ = _tile.getObject();
     tile_.setPosition(1300.f,900.f);
     tile_.setOutlineColor(sf::Color::Green);
     tile_.setFillColor(sf::Color::Red);
 
-    /// setting up "back" text
     font.loadFromFile("Fonts/LibreBaskerville-Italic.ttf");
     back.setFillColor(sf::Color::Blue);
     back.setString("Back(Esc)");
