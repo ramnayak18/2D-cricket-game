@@ -5,6 +5,7 @@
 #include<string>
 
 
+
 class playWindow
 {
 private:
@@ -79,7 +80,7 @@ private:
     bool soundplayed;
     std::string keypressed;
 public:
-    void defaultscr(sf::RenderWindow& window);
+    void defaultscr(sf::RenderWindow& window,unsigned* tgt);
     playWindow();
     void initvariables();
     void updateBallMovement();

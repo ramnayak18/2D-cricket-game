@@ -290,12 +290,22 @@ void playWindow::startmusic()
     music.setLoop(true);
 }
 
-void playWindow::defaultscr(sf::RenderWindow& window)
+void playWindow::defaultscr(sf::RenderWindow& window,unsigned* tgt)
 {
     /// resetting scores, overs and targets
+    std::string num_text = std::to_string(Overs);
+    std::string rounded = num_text.substr(0, num_text.find(".")+2);
     score.setString("Score: "+std::to_string(Score));
-    wicket.setString("Wickets: "+std::to_string(Wickets));
-    overs.setString("Overs: "+std::to_string(Overs));
+    if(tgt[1] == 2)
+    {
+        wicket.setString("Wickets: "+std::to_string(Wickets)+"/5");
+        overs.setString("Overs: "+rounded+" (2.0)");
+    }
+    if(tgt[1] == 5)
+    {
+        wicket.setString("Wickets: "+std::to_string(Wickets)+"/10");
+        overs.setString("Overs: "+rounded+" (5.0)");
+    }
     target.setString("Target: "+std::to_string(chase));
     sf::Time t1 = sf::seconds(2);
     /// rendering default screen
@@ -382,7 +392,7 @@ void playWindow::call(unsigned* tgt,sf::RenderWindow& window)
         {
             if(_ball.Ball.getPosition().y < window.getSize().y)
             {
-                this->defaultscr(window);
+                this->defaultscr(window,tgt);
                 _ball.updateBallMovement();
                 if((_ball.Ball.getPosition().y == marker_.getPosition().y) && (BallHitBat == false))
                 {
