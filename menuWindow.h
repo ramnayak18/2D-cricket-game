@@ -2,7 +2,7 @@
 #define _Menu_Window_H
 #include "objects.h"
 /// @file menuWindow.h
-/// @brief controls the functionalities and event loop of "Menu" window
+/// @brief declares the functionalities and event loop of "Menu" window
 
 /// @brief describes the options for the next window after the menuWindow
 enum class jump_t {HELP,ABOUT,LEVELS,CLOSE};

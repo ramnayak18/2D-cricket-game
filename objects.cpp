@@ -1,5 +1,6 @@
 #include "objects.h"
-
+/// @file objects.cpp
+/// @brief creates and returns objects to be used on screen, and ensapsulates state of the marker and ball
 tile::tile()
 {
     tiles.setPointCount(4);

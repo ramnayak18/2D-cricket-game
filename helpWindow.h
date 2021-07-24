@@ -2,7 +2,7 @@
 #define _help
 #include "objects.h"
 /// @file helpWindow.h
-/// @brief controls the functionalities and event loop of "Help" window
+/// @brief declares the functionalities and event loop of "Help" window
 
 /// @brief controls the functionalities and event loop of "Help" window
 /// @see aboutWindow

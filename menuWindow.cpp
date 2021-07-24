@@ -1,6 +1,8 @@
 #include "menuWindow.h"
 #include <iostream>
 #include <unistd.h>
+/// @file menuWindow.cpp
+/// @brief implements the functionalities and event loop of "Menu" window
 menuWindow::menuWindow()
 {
     this->texturebg.loadFromFile("Background/menubg.jpg");

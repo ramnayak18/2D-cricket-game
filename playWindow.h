@@ -3,9 +3,12 @@
 #include "objects.h"
 #include<iostream>
 #include<string>
+/// @file playWindow.h
+/// @brief declares the actual game window where the game is played by executing the game event loop
 
-
-
+/// @brief the actual game window where the game is played by executing the game event loop
+/// @bug the bowler type is shown after the last ball also
+/// @bug the speed of the first ball is very high
 class playWindow
 {
 private:
@@ -80,16 +83,44 @@ private:
     bool soundplayed;
     std::string keypressed;
 public:
+    /// @brief updates scores, wickets, runs and bowler type and renders the components of the window on the screen
+    /// @param window accepts a window reference to display the contents
+    /// @param tgt accepts a pointer to the target to be chased and the number of overs
+    /// @see levelsWindow::call()
     void defaultscr(sf::RenderWindow& window,unsigned* tgt);
+    /// @brief invokes playWindow::initvariables()
     playWindow();
+    /// @brief sets up objects to be displayed on the screen, loads music, initialises game logic variables with their default values
     void initvariables();
-    void updateBallMovement();
-    void updateBallSwing();
+    /// @brief sets a random bowler type to the ball - "FAST"/"SPIN" 
+    /// @see ball::getBowlerType()
     void updateBowlerType();
+    /// @brief displays the welcome message to the user
     void renderwelcome(sf::RenderWindow& window);
+    /// @brief plays game music
     void startmusic();
+    /// @brief sets a random position on the pitch (with contraints) for the marker to be placed
+    /// @see ball::getMarkerPositions(float,float)
     void updateMarker();
+    /// @brief moves batsman according to key pressed
+    /// @note A - Left\n
+    /// Q - Diagonally left (45 degrees)\n
+    /// W - Diagonally left (22.5 degrees)\n
+    /// E - Up\n
+    /// R - Diagonally right (22.5 degrees)\n
+    /// T - Diagonally right (45 degrees)\n
+    /// D - Right
     void update();
+    /// @brief runs the event loop for the game play\n
+    /// -a bowler type (FAST/SPIN) is chosen after each over\n
+    /// -each ball is a random spin or swing depending on bowler type and has a random marker, few balls are wide\n
+    /// -batsman movements are updated, and a hit is counted when the ball falls in the bounds of the bat\n
+    /// -earlier hits are given 4/6 runs, late hits 1/2 runs, wickets are down when the ball hits it\n
+    /// -messages are displayed and music played after each 4/6/wicket\n
+    /// @param window accepts a window reference to display the contents\n
+    /// @param tgt accepts a pointer to the target to be chased and the number of overs\n
+    /// @note Hit as early as you can after the ball hits the marker to get more runs\n
+    /// @see playWindow::updateBowlerType() ball::getBowlerType() ball::updateSwing() ball::updateSpin() playWindow::updateMarker() playWindow::update()
     void call(unsigned* tgt,sf::RenderWindow& window);
 };
 #endif

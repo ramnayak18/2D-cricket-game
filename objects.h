@@ -12,7 +12,7 @@ enum swing{INSWING=0, STRAIGHT, OUTSWING};
 enum spin{INWARD=0, STRAIGHTWARD, OUTWARD};
 
 /// @file objects.h
-/// @brief creates and returns objects to be used on screen, and ensapsulates state of the marker and ball
+/// @brief declares objects to be used on screen, and ensapsulates state of the marker and ball
 
 /// @brief creates and returns stump
 class stump

@@ -1,5 +1,8 @@
 #include "helpWindow.h"
 #include <iostream>
+/// @file helpWindow.cpp
+/// @brief implements the functionalities and event loop of "Help" window
+
 helpWindow::helpWindow()
 {
     if(!this->texturebg.loadFromFile("Background/helpbg.jpg"));

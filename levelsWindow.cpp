@@ -1,4 +1,6 @@
 #include "levelsWindow.h"
+/// @file levelsWindow.cpp
+/// @brief implements the functionalities and event loop of "Levels" window
 levelsWindow::levelsWindow()
 {
     std::srand(std::time(0));

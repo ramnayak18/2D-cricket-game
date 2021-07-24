@@ -6,7 +6,7 @@
 #include <cstdlib>
 #include <ctime>
 /// @file levelsWindow.h
-/// @brief controls the functionalities and event loop of "Levels" window
+/// @brief declares the functionalities and event loop of "Levels" window
 
 /// @brief controls the functionalities and event loop of "Levels" window
 /// @see playWindow.h

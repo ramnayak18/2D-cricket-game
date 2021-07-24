@@ -1,4 +1,6 @@
 #include "playWindow.h"
+/// @file playWindow.cpp
+/// @brief implements the actual game window where the game is played by executing the game event loop
 playWindow::playWindow()
 {
     this->initvariables();
@@ -53,7 +55,7 @@ void playWindow::initvariables()
     spritewicket.setPosition(250.f,150.f);
     spritelost.setPosition(0.f,0.f);
     spritewon.setPosition(0.f,0.f);
-    /// position the crease
+
     this->crease_ = this->_crease.getObject();
     (*this->crease_.begin()).setPosition(198.f,520.f);
     (*(this->crease_.begin()+1)).setPosition(272.f,130.f);
@@ -66,23 +68,19 @@ void playWindow::initvariables()
     (*(this->crease_.begin()+5)).rotate(350.f);
     (*(this->crease_.begin()+5)).setPosition(440.f,100.f);
     
-    /// initialise the movement speed
     _ball.movementSpeed = 8.f;
     xupdate = false;
-    /// position the bat
+
     this->bat_ = this->_bat.getObject();
 
-    /// position the batsman
     this->batsman_ = this->_batsman.getObject();
     this->batsman_.setPosition(195.f,330.f);
 
-    /// position the pitch
     this->pitch_ = this->_pitch.getObject();
 
-    /// position the marker
     this->marker_ = this->_marker.getObject();
     marker_.setPosition(408.f,380.f);
-    /// position the stumps
+
     for(int i=0;i<3;i++)
     {
         this->stump_[i] = this->_stump.getObject();
@@ -95,7 +93,7 @@ void playWindow::initvariables()
         this->stump_[i].setPosition(309.f+(float)i*16,45.f);
     }
 
-    /// position the bails
+
     for(int i=0;i<2;i++)
     {
         this->bail_[i] = this->_bail.getObject();
@@ -107,10 +105,9 @@ void playWindow::initvariables()
         this->bail_[i].setPosition(319.f+(float)i*20,45.f);
     }
 
-    ///position the ball
     _ball.Ball.setPosition(450.f,30.f);
     _ball.state = "To Marker";
-    /// position the tile
+
     this->tile_ = this->_tile.getObject();
     tile_.setScale(0.3f,0.3f);
     tile_.setPosition(640.f,540.f);
@@ -118,7 +115,6 @@ void playWindow::initvariables()
     tile_.setFillColor(sf::Color::Red);
     tile_.setOutlineThickness(10);
 
-    /// setting up "back" text
     font.loadFromFile("Fonts/LibreBaskerville-Italic.ttf");
     back.setFillColor(sf::Color::Blue);
     back.setString("Back(Esc)");
@@ -126,7 +122,6 @@ void playWindow::initvariables()
     back.setFont(font);
     back.setPosition(670.f,550.f); 
 
-    /// setting up scores, overs and targets
     this->score.setFont(font);
     score.setCharacterSize(20);
     this->overs.setFont(this->font);
@@ -150,7 +145,6 @@ void playWindow::initvariables()
     BowlerType.setFont(this->font);
     BowlerType.setFillColor(sf::Color::Yellow);
 
-    /// Ball didn't hit the marker yet
     BallHitMark = false;  
     BallHitBat = false;
     BallHitWicket = false;
@@ -184,7 +178,7 @@ void playWindow::updateBowlerType()
 void playWindow::updateMarker()
 {
     float x,y;
-    ///initialisng random position of marker
+
     if(_ball.BowlerType == "SPIN")
     {
         x = rand() % 90 + 340;
@@ -201,7 +195,6 @@ void playWindow::updateMarker()
 
 void playWindow::update()
 {
-    ///moving the batsman
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
     {
         this->batsman_.move(-0.25f, 0.f);
@@ -292,7 +285,6 @@ void playWindow::startmusic()
 
 void playWindow::defaultscr(sf::RenderWindow& window,unsigned* tgt)
 {
-    /// resetting scores, overs and targets
     std::string num_text = std::to_string(Overs);
     std::string rounded = num_text.substr(0, num_text.find(".")+2);
     score.setString("Score: "+std::to_string(Score));
@@ -308,7 +300,7 @@ void playWindow::defaultscr(sf::RenderWindow& window,unsigned* tgt)
     }
     target.setString("Target: "+std::to_string(chase));
     sf::Time t1 = sf::seconds(2);
-    /// rendering default screen
+
     window.clear(sf::Color::Green);
     window.draw(pitch_);
     window.draw(marker_);
@@ -334,7 +326,6 @@ void playWindow::defaultscr(sf::RenderWindow& window,unsigned* tgt)
         BowlerType.setCharacterSize(50.f);
         window.draw(BowlerType);
     }
-    //window.draw(Shot);
     window.setView(sf::View(sf::Vector2f(400.f,300.f),sf::Vector2f(800.f,600.f)));
     window.draw(tile_);
     window.draw(back);
