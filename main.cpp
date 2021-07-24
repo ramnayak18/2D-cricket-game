@@ -8,7 +8,7 @@
 /// @brief creates a window to be rendered on and manages flow between windows
 int main(int argc, char** argv)
 {
-    /*
+    
     /// create object for window
     sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(),"Crazy Cricketing Champs",sf::Style::Fullscreen);
     
@@ -40,7 +40,7 @@ int main(int argc, char** argv)
     About: about.call(*window);
     goto Menu;
     Close: return 0;
-*/
-    testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+    
+    //testing::InitGoogleTest(&argc, argv);
+    //return RUN_ALL_TESTS();
 }

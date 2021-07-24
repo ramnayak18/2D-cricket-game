@@ -131,7 +131,7 @@ TEST_F(ToMarkerTest,Test1)
     {
         _ball->updateBallMovement();
         ASSERT_NEAR(initslope,slope(prevX,prevY),0.001f);
-        EXPECT_NEAR(0.5f,_ball->Ball.getPosition().x-prevX,0.001f);
+        EXPECT_NEAR(1.f,_ball->Ball.getPosition().x-prevX,0.001f);
         if(_ball->Ball.getPosition().y>=marker_.getPosition().y)
             break;
         prevX = _ball->Ball.getPosition().x;
@@ -146,7 +146,7 @@ TEST_F(ToMarkerTest,Test2)
     {
         _ball->updateBallMovement();
         ASSERT_NEAR(initslope,slope(prevX,prevY),0.001f);
-        EXPECT_NEAR(0.5f,_ball->Ball.getPosition().y-prevY,0.001f);
+        EXPECT_NEAR(1.f,_ball->Ball.getPosition().y-prevY,0.001f);
         if(_ball->Ball.getPosition().y>=marker_.getPosition().y)
             break;
         prevX = _ball->Ball.getPosition().x;
@@ -161,7 +161,7 @@ TEST_F(ToMarkerTest,Test3)
     {
         _ball->updateBallMovement();
         ASSERT_NEAR(initslope,slope(prevX,prevY),0.001f);
-        EXPECT_NEAR(0.5f,prevX-_ball->Ball.getPosition().x,0.001f);
+        EXPECT_NEAR(1.f,prevX-_ball->Ball.getPosition().x,0.001f);
         if(_ball->Ball.getPosition().y>=marker_.getPosition().y)
             break;
         prevX = _ball->Ball.getPosition().x;
