@@ -6,7 +6,9 @@
 #include <iostream>
 #include <string>
 #include <cmath>
+/// @brief describes the swing options for the ball
 enum swing{INSWING=0, STRAIGHT, OUTSWING};
+/// @brief describes the spin options for the ball
 enum spin{INWARD=0, STRAIGHTWARD, OUTWARD};
 
 /// @file objects.h

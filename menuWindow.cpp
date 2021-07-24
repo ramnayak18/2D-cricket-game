@@ -3,7 +3,6 @@
 #include <unistd.h>
 menuWindow::menuWindow()
 {
-    /// setting up menu background
     this->texturebg.loadFromFile("Background/menubg.jpg");
     this->spritebg.setTexture(this->texturebg);
     sf::Vector2u bgsize=this->texturebg.getSize();
@@ -14,7 +13,6 @@ menuWindow::menuWindow()
     {
         _tile[i] = new tile();
     }
-    /// setting up text and tiles
     this->font.loadFromFile("Fonts/LibreBaskerville-Italic.ttf");
     text[0].setString("Play");
     text[1].setString("Help");
@@ -30,7 +28,6 @@ menuWindow::menuWindow()
     }
 }
 
-/// resetting screen to original condition
 void menuWindow::reset()
 {
     _tile[0]->state = "Hover";
@@ -45,7 +42,6 @@ void menuWindow::reset()
     event.key.code = sf::Keyboard::Space;
 }
 
-/// function to render graphics on screen
 void menuWindow::render(sf::RenderWindow& window)
 {
     window.clear();
