@@ -64,10 +64,10 @@ ________________________________________________________________________________
 **Some of the Crazy messages used in the game:**
 
 _Message for Six :_
-![Six Message](https://github.com/IITH-CS1023/cs1023-sdf-project-team-13/blob/main/Textures/Six%20message.png {width=40px height=400px})
+<img src="https://github.com/IITH-CS1023/cs1023-sdf-project-team-13/blob/main/Textures/Six%20message.png" width="48">
 
 _Message for wicket:_
-![Wicket Message](https://github.com/IITH-CS1023/cs1023-sdf-project-team-13/blob/main/Textures/Wicket%20message.jpg {width=40px height=400px})
+<img src="https://github.com/IITH-CS1023/cs1023-sdf-project-team-13/blob/main/Textures/Wicket%20message.jpg" width="48">
 _____________________________________________________________________________________________________________________________________________________________________________
 
 _Game Conclusion:_
@@ -77,13 +77,14 @@ If player loses, he gets encouraged by the children to play another game and try
 _____________________________________________________________________________________________________________________________________________________________________________
 
 _Technical Support:_
-To contact game developers kindly mail to any of the following mails 
-cs20btech11054@iith.ac.in  
-cs20btech11034@iith.ac.in  
-cs20btech11050@iith.ac.in  
-cs20btech11025@iith.ac.in
+To contact game developers kindly mail to any of the following mails:
 
-**Thankyou for Playing the Game** 
+|cs20btech11054@iith.ac.in|  
+|cs20btech11034@iith.ac.in|  
+|cs20btech11050@iith.ac.in|  
+|cs20btech11025@iith.ac.in|
+
+**Thankyou for Playing our Game hope you enjoy yourselves** 
 _____________________________________________________________________________________________________________________________________________________________________________
 
 
