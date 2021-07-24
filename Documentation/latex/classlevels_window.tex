@@ -1,0 +1,143 @@
+\hypertarget{classlevels_window}{}\doxysection{levels\+Window Class Reference}
+\label{classlevels_window}\index{levelsWindow@{levelsWindow}}
+
+
+controls the functionalities and event loop of \char`\"{}\+Levels\char`\"{} window  
+
+
+
+
+{\ttfamily \#include $<$levels\+Window.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classlevels_window_a8c163446d32d9b9e13808f9d2fac8c47}{levels\+Window}} ()
+\begin{DoxyCompactList}\small\item\em sets up background, button and text on the screen and updates button states to their default value \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classlevels_window_a5c5cf02d6166134832778acfe48a5295}{reset}} ()
+\begin{DoxyCompactList}\small\item\em resets the buttons to their default states before entering menu window \end{DoxyCompactList}\item 
+const int \mbox{\hyperlink{classlevels_window_a693d90a177fa80af3df63819537272a3}{level\+Logic}} (sf\+::\+Render\+Window \&window)
+\begin{DoxyCompactList}\small\item\em changes button states of levels depending upon the key pressed \end{DoxyCompactList}\item 
+const int \mbox{\hyperlink{classlevels_window_a33b59952983e24a11e59312e16e0c3cc}{overs\+Logic}} (sf\+::\+Render\+Window \&window)
+\begin{DoxyCompactList}\small\item\em changes button states of overs depending upon the key pressed \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classlevels_window_a9c7339ba30dc63b109a432f7e0cf9cf1}{render}} (sf\+::\+Render\+Window \&window)
+\begin{DoxyCompactList}\small\item\em renders the components of the window on the screen \end{DoxyCompactList}\item 
+unsigned $\ast$ \mbox{\hyperlink{classlevels_window_ad243e6e88a4c184889f7cd3e38207c33}{call}} (sf\+::\+Render\+Window \&window)
+\begin{DoxyCompactList}\small\item\em runs the event loop for the window, updating button states for levels and overs, and calculating the target to be chased \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+controls the functionalities and event loop of \char`\"{}\+Levels\char`\"{} window 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{play_window_8h}{play\+Window.\+h}} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classlevels_window_a8c163446d32d9b9e13808f9d2fac8c47}\label{classlevels_window_a8c163446d32d9b9e13808f9d2fac8c47}} 
+\index{levelsWindow@{levelsWindow}!levelsWindow@{levelsWindow}}
+\index{levelsWindow@{levelsWindow}!levelsWindow@{levelsWindow}}
+\doxysubsubsection{\texorpdfstring{levelsWindow()}{levelsWindow()}}
+{\footnotesize\ttfamily levels\+Window\+::levels\+Window (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+sets up background, button and text on the screen and updates button states to their default value 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classtile}{tile}} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classlevels_window_ad243e6e88a4c184889f7cd3e38207c33}\label{classlevels_window_ad243e6e88a4c184889f7cd3e38207c33}} 
+\index{levelsWindow@{levelsWindow}!call@{call}}
+\index{call@{call}!levelsWindow@{levelsWindow}}
+\doxysubsubsection{\texorpdfstring{call()}{call()}}
+{\footnotesize\ttfamily unsigned $\ast$ levels\+Window\+::call (\begin{DoxyParamCaption}\item[{sf\+::\+Render\+Window \&}]{window }\end{DoxyParamCaption})}
+
+
+
+runs the event loop for the window, updating button states for levels and overs, and calculating the target to be chased 
+
+
+\begin{DoxyParams}{Parameters}
+{\em window} & accepts a window reference to display the contents \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a pointer to an array storing the target to be achieved and total number of overs 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Use Up and Down Arrow keys to navigate between buttons and press Enter to select one 
+\end{DoxyNote}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classlevels_window_a693d90a177fa80af3df63819537272a3}{level\+Logic()}} \mbox{\hyperlink{classlevels_window_a33b59952983e24a11e59312e16e0c3cc}{overs\+Logic()}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classlevels_window_a693d90a177fa80af3df63819537272a3}\label{classlevels_window_a693d90a177fa80af3df63819537272a3}} 
+\index{levelsWindow@{levelsWindow}!levelLogic@{levelLogic}}
+\index{levelLogic@{levelLogic}!levelsWindow@{levelsWindow}}
+\doxysubsubsection{\texorpdfstring{levelLogic()}{levelLogic()}}
+{\footnotesize\ttfamily const int levels\+Window\+::level\+Logic (\begin{DoxyParamCaption}\item[{sf\+::\+Render\+Window \&}]{window }\end{DoxyParamCaption})}
+
+
+
+changes button states of levels depending upon the key pressed 
+
+\begin{DoxyReturn}{Returns}
+the serial number of the difficulty level selected 
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classtile}{tile}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classlevels_window_a33b59952983e24a11e59312e16e0c3cc}\label{classlevels_window_a33b59952983e24a11e59312e16e0c3cc}} 
+\index{levelsWindow@{levelsWindow}!oversLogic@{oversLogic}}
+\index{oversLogic@{oversLogic}!levelsWindow@{levelsWindow}}
+\doxysubsubsection{\texorpdfstring{oversLogic()}{oversLogic()}}
+{\footnotesize\ttfamily const int levels\+Window\+::overs\+Logic (\begin{DoxyParamCaption}\item[{sf\+::\+Render\+Window \&}]{window }\end{DoxyParamCaption})}
+
+
+
+changes button states of overs depending upon the key pressed 
+
+\begin{DoxyReturn}{Returns}
+the serial number of the overs selected 
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classtile}{tile}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classlevels_window_a9c7339ba30dc63b109a432f7e0cf9cf1}\label{classlevels_window_a9c7339ba30dc63b109a432f7e0cf9cf1}} 
+\index{levelsWindow@{levelsWindow}!render@{render}}
+\index{render@{render}!levelsWindow@{levelsWindow}}
+\doxysubsubsection{\texorpdfstring{render()}{render()}}
+{\footnotesize\ttfamily void levels\+Window\+::render (\begin{DoxyParamCaption}\item[{sf\+::\+Render\+Window \&}]{window }\end{DoxyParamCaption})}
+
+
+
+renders the components of the window on the screen 
+
+
+\begin{DoxyParams}{Parameters}
+{\em window} & accepts a window reference to display the contents \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classlevels_window_a5c5cf02d6166134832778acfe48a5295}\label{classlevels_window_a5c5cf02d6166134832778acfe48a5295}} 
+\index{levelsWindow@{levelsWindow}!reset@{reset}}
+\index{reset@{reset}!levelsWindow@{levelsWindow}}
+\doxysubsubsection{\texorpdfstring{reset()}{reset()}}
+{\footnotesize\ttfamily void levels\+Window\+::reset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+resets the buttons to their default states before entering menu window 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classtile}{tile}} 
+\end{DoxySeeAlso}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Namita/\+One\+Drive/\+Documents/\+CS1023-\/\+Project/cs1023-\/sdf-\/project-\/team-\/13/\mbox{\hyperlink{levels_window_8h}{levels\+Window.\+h}}\item 
+C\+:/\+Users/\+Namita/\+One\+Drive/\+Documents/\+CS1023-\/\+Project/cs1023-\/sdf-\/project-\/team-\/13/\mbox{\hyperlink{levels_window_8cpp}{levels\+Window.\+cpp}}\end{DoxyCompactItemize}

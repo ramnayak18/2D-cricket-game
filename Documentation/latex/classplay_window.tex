@@ -1,0 +1,196 @@
+\hypertarget{classplay_window}{}\doxysection{play\+Window Class Reference}
+\label{classplay_window}\index{playWindow@{playWindow}}
+
+
+the actual game window where the game is played by executing the game event loop  
+
+
+
+
+{\ttfamily \#include $<$play\+Window.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classplay_window_ae18e3da5e022552ecacf81b31bb6326c}{defaultscr}} (sf\+::\+Render\+Window \&window, unsigned $\ast$tgt)
+\begin{DoxyCompactList}\small\item\em updates scores, wickets, runs and bowler type and renders the components of the window on the screen \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classplay_window_a529b9eb41343a21a304e2f928f10c69a}{play\+Window}} ()
+\begin{DoxyCompactList}\small\item\em invokes \mbox{\hyperlink{classplay_window_a7751c7d19df4134d9e0dcfd1d4d03f57}{play\+Window\+::initvariables()}} \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classplay_window_a7751c7d19df4134d9e0dcfd1d4d03f57}{initvariables}} ()
+\begin{DoxyCompactList}\small\item\em sets up objects to be displayed on the screen, loads music, initialises game logic variables with their default values \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classplay_window_a146c3a9026ea796cc8762101830b2723}{update\+Bowler\+Type}} ()
+\begin{DoxyCompactList}\small\item\em sets a random bowler type to the ball -\/ \char`\"{}\+FAST\char`\"{}/\char`\"{}\+SPIN\char`\"{} \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classplay_window_a63bac3825ae738b12c2db46fa7e117d3}{renderwelcome}} (sf\+::\+Render\+Window \&window)
+\begin{DoxyCompactList}\small\item\em displays the welcome message to the user \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classplay_window_a242707147f27106a5647ab2012718ec7}{startmusic}} ()
+\begin{DoxyCompactList}\small\item\em plays game music \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classplay_window_a0dab4010dd2562d070dda72655a94f04}{update\+Marker}} ()
+\begin{DoxyCompactList}\small\item\em sets a random position on the pitch (with contraints) for the marker to be placed \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classplay_window_a8b5984f6bb9f6e9d1e80e2e4eb0712be}{update}} ()
+\begin{DoxyCompactList}\small\item\em moves batsman according to key pressed \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classplay_window_a41e5d2ab6f486195c53614d264b74c28}{call}} (unsigned $\ast$tgt, sf\+::\+Render\+Window \&window)
+\begin{DoxyCompactList}\small\item\em runs the event loop for the game play~\newline
+-\/a bowler type (FAST/\+SPIN) is chosen after each over~\newline
+-\/each ball is a random spin or swing depending on bowler type and has a random marker, few balls are wide~\newline
+-\/batsman movements are updated, and a hit is counted when the ball falls in the bounds of the bat~\newline
+-\/earlier hits are given 4/6 runs, late hits 1/2 runs, wickets are down when the ball hits it~\newline
+-\/messages are displayed and music played after each 4/6/wicket~\newline
+\end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+the actual game window where the game is played by executing the game event loop 
+
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000001}{Bug}}]the bowler type is shown after the last ball also 
+
+the speed of the first ball is very high \end{DoxyRefDesc}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classplay_window_a529b9eb41343a21a304e2f928f10c69a}\label{classplay_window_a529b9eb41343a21a304e2f928f10c69a}} 
+\index{playWindow@{playWindow}!playWindow@{playWindow}}
+\index{playWindow@{playWindow}!playWindow@{playWindow}}
+\doxysubsubsection{\texorpdfstring{playWindow()}{playWindow()}}
+{\footnotesize\ttfamily play\+Window\+::play\+Window (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+invokes \mbox{\hyperlink{classplay_window_a7751c7d19df4134d9e0dcfd1d4d03f57}{play\+Window\+::initvariables()}} 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classplay_window_a41e5d2ab6f486195c53614d264b74c28}\label{classplay_window_a41e5d2ab6f486195c53614d264b74c28}} 
+\index{playWindow@{playWindow}!call@{call}}
+\index{call@{call}!playWindow@{playWindow}}
+\doxysubsubsection{\texorpdfstring{call()}{call()}}
+{\footnotesize\ttfamily void play\+Window\+::call (\begin{DoxyParamCaption}\item[{unsigned $\ast$}]{tgt,  }\item[{sf\+::\+Render\+Window \&}]{window }\end{DoxyParamCaption})}
+
+
+
+runs the event loop for the game play~\newline
+-\/a bowler type (FAST/\+SPIN) is chosen after each over~\newline
+-\/each ball is a random spin or swing depending on bowler type and has a random marker, few balls are wide~\newline
+-\/batsman movements are updated, and a hit is counted when the ball falls in the bounds of the bat~\newline
+-\/earlier hits are given 4/6 runs, late hits 1/2 runs, wickets are down when the ball hits it~\newline
+-\/messages are displayed and music played after each 4/6/wicket~\newline
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em window} & accepts a window reference to display the contents~\newline
+\\
+\hline
+{\em tgt} & accepts a pointer to the target to be chased and the number of overs~\newline
+\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Hit as early as you can after the ball hits the marker to get more runs~\newline
+
+\end{DoxyNote}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classplay_window_a146c3a9026ea796cc8762101830b2723}{play\+Window\+::update\+Bowler\+Type()}} \mbox{\hyperlink{classball_ad86a87e5862fa74db29cbae913ac5136}{ball\+::get\+Bowler\+Type()}} \mbox{\hyperlink{classball_a2b5f9305490795a8184b8fbbdb2c275b}{ball\+::update\+Swing()}} \mbox{\hyperlink{classball_accedc212ac89d573f75b18019056d2d3}{ball\+::update\+Spin()}} \mbox{\hyperlink{classplay_window_a0dab4010dd2562d070dda72655a94f04}{play\+Window\+::update\+Marker()}} \mbox{\hyperlink{classplay_window_a8b5984f6bb9f6e9d1e80e2e4eb0712be}{play\+Window\+::update()}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classplay_window_ae18e3da5e022552ecacf81b31bb6326c}\label{classplay_window_ae18e3da5e022552ecacf81b31bb6326c}} 
+\index{playWindow@{playWindow}!defaultscr@{defaultscr}}
+\index{defaultscr@{defaultscr}!playWindow@{playWindow}}
+\doxysubsubsection{\texorpdfstring{defaultscr()}{defaultscr()}}
+{\footnotesize\ttfamily void play\+Window\+::defaultscr (\begin{DoxyParamCaption}\item[{sf\+::\+Render\+Window \&}]{window,  }\item[{unsigned $\ast$}]{tgt }\end{DoxyParamCaption})}
+
+
+
+updates scores, wickets, runs and bowler type and renders the components of the window on the screen 
+
+
+\begin{DoxyParams}{Parameters}
+{\em window} & accepts a window reference to display the contents \\
+\hline
+{\em tgt} & accepts a pointer to the target to be chased and the number of overs \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classlevels_window_ad243e6e88a4c184889f7cd3e38207c33}{levels\+Window\+::call()}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classplay_window_a7751c7d19df4134d9e0dcfd1d4d03f57}\label{classplay_window_a7751c7d19df4134d9e0dcfd1d4d03f57}} 
+\index{playWindow@{playWindow}!initvariables@{initvariables}}
+\index{initvariables@{initvariables}!playWindow@{playWindow}}
+\doxysubsubsection{\texorpdfstring{initvariables()}{initvariables()}}
+{\footnotesize\ttfamily void play\+Window\+::initvariables (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+sets up objects to be displayed on the screen, loads music, initialises game logic variables with their default values 
+
+\mbox{\Hypertarget{classplay_window_a63bac3825ae738b12c2db46fa7e117d3}\label{classplay_window_a63bac3825ae738b12c2db46fa7e117d3}} 
+\index{playWindow@{playWindow}!renderwelcome@{renderwelcome}}
+\index{renderwelcome@{renderwelcome}!playWindow@{playWindow}}
+\doxysubsubsection{\texorpdfstring{renderwelcome()}{renderwelcome()}}
+{\footnotesize\ttfamily void play\+Window\+::renderwelcome (\begin{DoxyParamCaption}\item[{sf\+::\+Render\+Window \&}]{window }\end{DoxyParamCaption})}
+
+
+
+displays the welcome message to the user 
+
+\mbox{\Hypertarget{classplay_window_a242707147f27106a5647ab2012718ec7}\label{classplay_window_a242707147f27106a5647ab2012718ec7}} 
+\index{playWindow@{playWindow}!startmusic@{startmusic}}
+\index{startmusic@{startmusic}!playWindow@{playWindow}}
+\doxysubsubsection{\texorpdfstring{startmusic()}{startmusic()}}
+{\footnotesize\ttfamily void play\+Window\+::startmusic (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+plays game music 
+
+\mbox{\Hypertarget{classplay_window_a8b5984f6bb9f6e9d1e80e2e4eb0712be}\label{classplay_window_a8b5984f6bb9f6e9d1e80e2e4eb0712be}} 
+\index{playWindow@{playWindow}!update@{update}}
+\index{update@{update}!playWindow@{playWindow}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily void play\+Window\+::update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+moves batsman according to key pressed 
+
+\begin{DoxyNote}{Note}
+A -\/ Left~\newline
+Q -\/ Diagonally left (45 degrees)~\newline
+W -\/ Diagonally left (22.\+5 degrees)~\newline
+E -\/ Up~\newline
+R -\/ Diagonally right (22.\+5 degrees)~\newline
+T -\/ Diagonally right (45 degrees)~\newline
+D -\/ Right 
+\end{DoxyNote}
+\mbox{\Hypertarget{classplay_window_a146c3a9026ea796cc8762101830b2723}\label{classplay_window_a146c3a9026ea796cc8762101830b2723}} 
+\index{playWindow@{playWindow}!updateBowlerType@{updateBowlerType}}
+\index{updateBowlerType@{updateBowlerType}!playWindow@{playWindow}}
+\doxysubsubsection{\texorpdfstring{updateBowlerType()}{updateBowlerType()}}
+{\footnotesize\ttfamily void play\+Window\+::update\+Bowler\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+sets a random bowler type to the ball -\/ \char`\"{}\+FAST\char`\"{}/\char`\"{}\+SPIN\char`\"{} 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classball_ad86a87e5862fa74db29cbae913ac5136}{ball\+::get\+Bowler\+Type()}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classplay_window_a0dab4010dd2562d070dda72655a94f04}\label{classplay_window_a0dab4010dd2562d070dda72655a94f04}} 
+\index{playWindow@{playWindow}!updateMarker@{updateMarker}}
+\index{updateMarker@{updateMarker}!playWindow@{playWindow}}
+\doxysubsubsection{\texorpdfstring{updateMarker()}{updateMarker()}}
+{\footnotesize\ttfamily void play\+Window\+::update\+Marker (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+sets a random position on the pitch (with contraints) for the marker to be placed 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classball_a5cb81ac4846a73219e4d1e86c204db5d}{ball\+::get\+Marker\+Positions(float,float)}} 
+\end{DoxySeeAlso}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Namita/\+One\+Drive/\+Documents/\+CS1023-\/\+Project/cs1023-\/sdf-\/project-\/team-\/13/\mbox{\hyperlink{play_window_8h}{play\+Window.\+h}}\item 
+C\+:/\+Users/\+Namita/\+One\+Drive/\+Documents/\+CS1023-\/\+Project/cs1023-\/sdf-\/project-\/team-\/13/\mbox{\hyperlink{play_window_8cpp}{play\+Window.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,123 @@
+\hypertarget{classtile}{}\doxysection{tile Class Reference}
+\label{classtile}\index{tile@{tile}}
+
+
+creates and supplies buttons, manages button states  
+
+
+
+
+{\ttfamily \#include $<$objects.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtile_a294955b8c59ebef580775218e9df6f56}{tile}} ()
+\begin{DoxyCompactList}\small\item\em creates a flag-\/shaped button with yellow color and white outline, initialises button state as \char`\"{}\+NULL\char`\"{} \end{DoxyCompactList}\item 
+sf\+::\+Convex\+Shape \mbox{\hyperlink{classtile_a847fe0f4c3fc5194231248f4126d0ab2}{get\+Object}} ()
+\item 
+void \mbox{\hyperlink{classtile_ab1cb2d4ecd9527cb81800243cd392d4d}{set\+Text}} (sf\+::\+Text Text)
+\begin{DoxyCompactList}\small\item\em stores the accepted text in \mbox{\hyperlink{classtile_a076a76bdfb25d0fa966cb2f82b0a861b}{tile\+::text}} \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtile_a4856ab29826f9446be1792102eaf7468}{update\+Color}} ()
+\begin{DoxyCompactList}\small\item\em changes button\textquotesingle{}s fill colour based on it\textquotesingle{}s state (green for \char`\"{}\+Hover\char`\"{} and yellow for \char`\"{}\+NULL\char`\"{}) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+sf\+::\+Convex\+Shape \mbox{\hyperlink{classtile_a38ce26fd3d379541fd59e729dec4034b}{tiles}}
+\begin{DoxyCompactList}\small\item\em stores the button \end{DoxyCompactList}\item 
+sf\+::\+Text \mbox{\hyperlink{classtile_a076a76bdfb25d0fa966cb2f82b0a861b}{text}}
+\begin{DoxyCompactList}\small\item\em stores text displayed on button \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classtile_afea1a7e339639f03e3299f0935a5ceed}{state}}
+\begin{DoxyCompactList}\small\item\em stores button state -\/ \char`\"{}\+NULL\char`\"{} or \char`\"{}\+Hover\char`\"{} \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+creates and supplies buttons, manages button states 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtile_a294955b8c59ebef580775218e9df6f56}\label{classtile_a294955b8c59ebef580775218e9df6f56}} 
+\index{tile@{tile}!tile@{tile}}
+\index{tile@{tile}!tile@{tile}}
+\doxysubsubsection{\texorpdfstring{tile()}{tile()}}
+{\footnotesize\ttfamily tile\+::tile (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+creates a flag-\/shaped button with yellow color and white outline, initialises button state as \char`\"{}\+NULL\char`\"{} 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtile_a847fe0f4c3fc5194231248f4126d0ab2}\label{classtile_a847fe0f4c3fc5194231248f4126d0ab2}} 
+\index{tile@{tile}!getObject@{getObject}}
+\index{getObject@{getObject}!tile@{tile}}
+\doxysubsubsection{\texorpdfstring{getObject()}{getObject()}}
+{\footnotesize\ttfamily sf\+::\+Convex\+Shape tile\+::get\+Object (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+the button 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtile_ab1cb2d4ecd9527cb81800243cd392d4d}\label{classtile_ab1cb2d4ecd9527cb81800243cd392d4d}} 
+\index{tile@{tile}!setText@{setText}}
+\index{setText@{setText}!tile@{tile}}
+\doxysubsubsection{\texorpdfstring{setText()}{setText()}}
+{\footnotesize\ttfamily void tile\+::set\+Text (\begin{DoxyParamCaption}\item[{sf\+::\+Text}]{Text }\end{DoxyParamCaption})}
+
+
+
+stores the accepted text in \mbox{\hyperlink{classtile_a076a76bdfb25d0fa966cb2f82b0a861b}{tile\+::text}} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Text} & accepts the text for the button \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classtile_a4856ab29826f9446be1792102eaf7468}\label{classtile_a4856ab29826f9446be1792102eaf7468}} 
+\index{tile@{tile}!updateColor@{updateColor}}
+\index{updateColor@{updateColor}!tile@{tile}}
+\doxysubsubsection{\texorpdfstring{updateColor()}{updateColor()}}
+{\footnotesize\ttfamily void tile\+::update\+Color (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+changes button\textquotesingle{}s fill colour based on it\textquotesingle{}s state (green for \char`\"{}\+Hover\char`\"{} and yellow for \char`\"{}\+NULL\char`\"{}) 
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classtile_afea1a7e339639f03e3299f0935a5ceed}\label{classtile_afea1a7e339639f03e3299f0935a5ceed}} 
+\index{tile@{tile}!state@{state}}
+\index{state@{state}!tile@{tile}}
+\doxysubsubsection{\texorpdfstring{state}{state}}
+{\footnotesize\ttfamily std\+::string tile\+::state}
+
+
+
+stores button state -\/ \char`\"{}\+NULL\char`\"{} or \char`\"{}\+Hover\char`\"{} 
+
+\mbox{\Hypertarget{classtile_a076a76bdfb25d0fa966cb2f82b0a861b}\label{classtile_a076a76bdfb25d0fa966cb2f82b0a861b}} 
+\index{tile@{tile}!text@{text}}
+\index{text@{text}!tile@{tile}}
+\doxysubsubsection{\texorpdfstring{text}{text}}
+{\footnotesize\ttfamily sf\+::\+Text tile\+::text}
+
+
+
+stores text displayed on button 
+
+\mbox{\Hypertarget{classtile_a38ce26fd3d379541fd59e729dec4034b}\label{classtile_a38ce26fd3d379541fd59e729dec4034b}} 
+\index{tile@{tile}!tiles@{tiles}}
+\index{tiles@{tiles}!tile@{tile}}
+\doxysubsubsection{\texorpdfstring{tiles}{tiles}}
+{\footnotesize\ttfamily sf\+::\+Convex\+Shape tile\+::tiles}
+
+
+
+stores the button 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Namita/\+One\+Drive/\+Documents/\+CS1023-\/\+Project/cs1023-\/sdf-\/project-\/team-\/13/\mbox{\hyperlink{objects_8h}{objects.\+h}}\item 
+C\+:/\+Users/\+Namita/\+One\+Drive/\+Documents/\+CS1023-\/\+Project/cs1023-\/sdf-\/project-\/team-\/13/\mbox{\hyperlink{objects_8cpp}{objects.\+cpp}}\end{DoxyCompactItemize}
