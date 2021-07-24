@@ -19,13 +19,13 @@ Some kids playing cricket in their ground unfortunately gets bullied by some eld
 You are a player with amazing cricket skills referred to as **“CHAMP”** who is going to help these kids in getting back their ground by challenging the elder players.
 The elder players give you some target to hit as per the level you select. The number of wickets are decided as per overs you select for 2 overs 5 wickets
 and for 5 overs 10 wickets are given to the player. 
-|---------|----------------------|---------------------|
+
 |Levels  	|     2 Overs	         |       5 Overs       |
 |---------|----------------------|---------------------|
 |Easy	    |   12 – 17 Target	   |     25 – 31 Target  |
 |Medium	  |   17 – 21 Target	   |     31 – 41 Target  |
 |Hard	    |   21 – 25 Target	   |     41 – 51 Target  |
-|---------|----------------------|---------------------|
+
 Chasing the opponent’s target within the given wickets, limited number of balls is the main objective of the game. 
 _____________________________________________________________________________________________________________________________________________________________________________
 
@@ -40,7 +40,7 @@ Press ESC to go to main menu window
 
 In the Game Window:
 User is provided with 7-free directions, user can access those directions using the following keys
-|-------------|------------------------------------|
+
 |Keyboard Key	| Player Movement                    |
 |-------------|------------------------------------| 
 |   A	        | Moves Left                         |
@@ -50,7 +50,7 @@ User is provided with 7-free directions, user can access those directions using 
 |   E	        | Moves Straight                     |
 |   R	        | Moves Diagonally Right (Less Angle)|
 |   T	        | Moves Diagonally Right (More Angle)|
-|-------------|------------------------------------| 
+
  Press ESC to go to main menu window in the middle of game
 
 Use A, D and Q, W, E, R, T keys to set appropriate position for the batsman such that the bat get ball undergoes direct collision after ball pitches
@@ -59,6 +59,15 @@ wicket player loses a wicket and if ball goes wide bonus score is given.
 
 To Close the Game:
 Go to Main Menu Window and Select Close option and press ENTER to quit.
+_____________________________________________________________________________________________________________________________________________________________________________
+
+**Some of the Crazy messages used in the game:**
+
+_Message for Six :_
+![Six Message](https://github.com/IITH-CS1023/cs1023-sdf-project-team-13/blob/main/Textures/Six%20message.png {width=40px height=400px})
+
+_Message for wicket:_
+![Wicket Message](https://github.com/IITH-CS1023/cs1023-sdf-project-team-13/blob/main/Textures/Wicket%20message.jpg {width=40px height=400px})
 _____________________________________________________________________________________________________________________________________________________________________________
 
 _Game Conclusion:_
@@ -77,5 +86,4 @@ cs20btech11025@iith.ac.in
 **Thankyou for Playing the Game** 
 _____________________________________________________________________________________________________________________________________________________________________________
 
-Message for Six :
-![Six Message](https://github.com/IITH-CS1023/cs1023-sdf-project-team-13/blob/main/Textures/Six%20message.png)
+
