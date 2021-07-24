@@ -1,4 +1,6 @@
 #include "aboutWindow.h"
+/// @file aboutWindow.cpp
+/// @brief implements the functionalities and event loop of "About" window
 aboutWindow::aboutWindow()
 {
     this->texturebg.loadFromFile("Background/aboutbg.jpg");

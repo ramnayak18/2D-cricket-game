@@ -2,7 +2,7 @@
 #define _ABOUT
 #include "objects.h"
 /// @file aboutWindow.h
-/// @brief controls the functionalities and event loop of "About" window
+/// @brief decalres the functionalities and event loop of "About" window
 
 /// @brief controls the functionalities and event loop of "About" window
 /// @see helpWindow

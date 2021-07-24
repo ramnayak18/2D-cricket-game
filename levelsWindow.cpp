@@ -1,16 +1,16 @@
 #include "levelsWindow.h"
+/// @file levelsWindow.cpp
+/// @brief implements the functionalities and event loop of "Levels" window
 levelsWindow::levelsWindow()
 {
     std::srand(std::time(0));
 
-    /// setting up background
     this->texturebg.loadFromFile("Background/bg.jpg");
     this->spritebg.setTexture(this->texturebg);
     sf::Vector2u bgsize=this->texturebg.getSize();
     spritebg.setScale(1920/static_cast<float>(bgsize.x),1080/static_cast<float>(bgsize.y));
     spritebg.setPosition(0.f,0.f);
 
-    /// setting up text and tiles
     font.loadFromFile("Fonts/LibreBaskerville-Italic.ttf");
     section[0].setString("Level");
     section[1].setString("Overs");
@@ -51,7 +51,6 @@ levelsWindow::levelsWindow()
     }
 }
 
-/// resetting default screen
 void levelsWindow::reset()
 {
     _levelTile[0]->tiles.setFillColor(sf::Color::Red);
@@ -70,7 +69,6 @@ void levelsWindow::reset()
     event.key.code=sf::Keyboard::Space;
 }
 
-/// rendering the graphics on screen
 void levelsWindow::render(sf::RenderWindow& window)
 {
     window.clear();
@@ -90,7 +88,6 @@ void levelsWindow::render(sf::RenderWindow& window)
     window.display();
 }
 
-/// logic for keys pressed for levels
 const int levelsWindow::levelLogic(sf::RenderWindow& window)
 {
     int i;
@@ -140,7 +137,6 @@ const int levelsWindow::levelLogic(sf::RenderWindow& window)
     return i;                
 }
 
-/// logic for keys pressed for overs
 const int levelsWindow::oversLogic(sf::RenderWindow& window)
 {
     int j;

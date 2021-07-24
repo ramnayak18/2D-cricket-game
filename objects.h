@@ -6,11 +6,13 @@
 #include <iostream>
 #include <string>
 #include <cmath>
+/// @brief describes the swing options for the ball
 enum swing{INSWING=0, STRAIGHT, OUTSWING};
+/// @brief describes the spin options for the ball
 enum spin{INWARD=0, STRAIGHTWARD, OUTWARD};
 
 /// @file objects.h
-/// @brief creates and returns objects to be used on screen, and ensapsulates state of the marker and ball
+/// @brief declares objects to be used on screen, and ensapsulates state of the marker and ball
 
 /// @brief creates and returns stump
 class stump

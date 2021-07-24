@@ -3,18 +3,21 @@
 #include "levelsWindow.h"
 #include "playWindow.h"
 #include "aboutWindow.h"
+/// @file main.cpp
+/// @brief creates a window to be rendered on and manages flow between windows
 int main()
 {
-    /// creating object for window
+    /// create object for window
     sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(),"Crazy Cricketing Champs",sf::Style::Fullscreen);
     
-    /// creating objects for the various windows
+    /// create objects for the various windows
     helpWindow help;
     menuWindow menu;
     levelsWindow levels;
     playWindow play;
     aboutWindow about;
     unsigned* arr;
+    /// start game music and welcome screen
     play.startmusic();
     play.renderwelcome(*window);
     /// switching between the various windows
