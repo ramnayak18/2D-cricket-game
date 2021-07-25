@@ -35,7 +35,44 @@ void tile::updateColor()
         tiles.setOutlineColor(sf::Color::White);
     }
 }
-
+int tile::update(tile* arr[],unsigned options,sf::Event& event)
+{
+    int i;
+    switch(event.key.code)
+    {
+        case sf::Keyboard::Up:
+            for(i=0;i<options;i++)
+                if(arr[i]->state == "Hover")
+                {
+                    arr[i]->state = "NULL";
+                    arr[i]->updateColor();
+                    arr[(i+options-1)%options]->state = "Hover";
+                    arr[(i+options-1)%options]->updateColor();
+                    break;
+                }
+            break;
+        case sf::Keyboard::Down:
+            for(i=0;i<options;i++)
+                if(arr[i]->state == "Hover")
+                {
+                    arr[i]->state = "NULL";
+                    arr[i]->updateColor();
+                    arr[(i+1)%options]->state = "Hover";
+                    arr[(i+1)%options]->updateColor();
+                    break;
+                }
+            break;
+        case sf::Keyboard::Enter:
+            for(i=0;i<options;i++)
+                if(arr[i]->state == "Hover")
+                {
+                    arr[0]->tiles.setFillColor(sf::Color::Yellow);
+                    arr[i]->tiles.setFillColor(sf::Color::Red);
+                    break;
+                }
+    }
+    return i;
+}
 stump::stump()
 {
     this->stump1.setSize(sf::Vector2f(8.f,100.f));

@@ -91,48 +91,17 @@ void levelsWindow::render(sf::RenderWindow& window)
 const int levelsWindow::levelLogic(sf::RenderWindow& window)
 {
     int i;
-    switch(event.key.code)
+    i = _levelTile[0]->update(_levelTile,3,event);
+    if(event.key.code == sf::Keyboard::Enter)
     {
-        case sf::Keyboard::Up:
-            for(i=0;i<3;i++)
-                if(_levelTile[i]->state == "Hover")
-                {
-                    _levelTile[i]->state = "NULL";
-                    _levelTile[i]->updateColor();
-                    _levelTile[(i+2)%3]->state = "Hover";
-                    _levelTile[(i+2)%3]->updateColor();
-                    break;
-                }
-            break;
-        case sf::Keyboard::Down:
-            for(i=0;i<3;i++)
-                if(_levelTile[i]->state == "Hover")
-                {
-                    _levelTile[i]->state = "NULL";
-                    _levelTile[i]->updateColor();
-                    _levelTile[(i+1)%3]->state = "Hover";
-                    _levelTile[(i+1)%3]->updateColor();
-                    break;
-                }
-            break;
-        case sf::Keyboard::Enter:
-            for(i=0;i<3;i++)
-            {
-                if(_levelTile[i]->state == "Hover")
-                {
-                    _levelTile[0]->tiles.setFillColor(sf::Color::Yellow);
-                    _levelTile[i]->tiles.setFillColor(sf::Color::Red);
-                    levelinit = true;
-                    _oversTile[0]->tiles.setFillColor(sf::Color::Red);
-                    _oversTile[0]->tiles.setOutlineColor(sf::Color::Green);
-                    _levelTile[i]->tiles.setOutlineColor(sf::Color::White);
-                    _oversTile[0]->state = "Hover";
-                    event.key.code = sf::Keyboard::Space;
-                    render(window);
-                    sleep(1);
-                    break;
-                }
-            }
+        levelinit = true;
+        _oversTile[0]->tiles.setFillColor(sf::Color::Red);
+        _oversTile[0]->tiles.setOutlineColor(sf::Color::Green);
+        _levelTile[i]->tiles.setOutlineColor(sf::Color::White);
+        _oversTile[0]->state = "Hover";
+        event.key.code = sf::Keyboard::Space;
+        render(window);
+        sleep(1);
     }
     return i;                
 }
@@ -140,33 +109,11 @@ const int levelsWindow::levelLogic(sf::RenderWindow& window)
 const int levelsWindow::oversLogic(sf::RenderWindow& window)
 {
     int j;
-    switch(event.key.code)
+    j = _oversTile[0]->update(_oversTile,2,event);
+    if(event.key.code == sf::Keyboard::Enter)
     {
-        case sf::Keyboard::Up:
-        case sf::Keyboard::Down:
-            for(j=0;j<2;j++)
-            if(_oversTile[j]->state == "Hover")
-            {
-                _oversTile[j]->state = "NULL";
-                _oversTile[j]->updateColor();
-                _oversTile[(j+1)%2]->state = "Hover";
-                _oversTile[(j+1)%2]->updateColor();
-                if(_oversTile[j]->tiles.getOutlineColor()==sf::Color::White);
-                    break;
-            }
-            break;
-        case sf::Keyboard::Enter:
-            for(j=0;j<2;j++)
-            {
-                if(_oversTile[j]->state == "Hover")
-                {
-                    _oversTile[0]->tiles.setFillColor(sf::Color::Yellow);
-                    _oversTile[j]->tiles.setFillColor(sf::Color::Red);
-                    render(window);
-                    sleep(1);
-                        break;
-                }
-            }
+        render(window);
+        sleep(1);
     }
     return j;
 }

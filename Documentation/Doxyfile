@@ -58,7 +58,7 @@ PROJECT_LOGO           =
 # entered, it will be relative to the location where doxygen was started. If
 # left blank the current directory will be used.
 
-OUTPUT_DIRECTORY       = C:\Users\Namita\OneDrive\Documents\CS1023-Project\doc
+OUTPUT_DIRECTORY       = C:\Users\Namita\OneDrive\Documents\CS1023-Project\cs1023-sdf-project-team-13\Documentation
 
 # If the CREATE_SUBDIRS tag is set to YES then doxygen will create 4096 sub-
 # directories (in 2 levels) under the output directory of each output format and

@@ -26,7 +26,20 @@ var NAVTREE =
 [
   [ "Crazy Cricketing Champs", "index.html", [
     [ "LICENSES USED", "md__c___users__namita__one_drive__documents__c_s1023__project_cs1023_sdf_project_team_13__l_i_c_e_n_s_e_s__u_s_e_d.html", null ],
-    [ "README", "md__c___users__namita__one_drive__documents__c_s1023__project_cs1023_sdf_project_team_13__r_e_a_d_m_e.html", null ],
+    [ "README", "md__c___users__namita__one_drive__documents__c_s1023__project_cs1023_sdf_project_team_13__r_e_a_d_m_e.html", [
+      [ "<strong>Developer's Manual</strong>", "md__c___users__namita__one_drive__documents__c_s1023__project_cs1023_sdf_project_team_13__r_e_a_d_m_e.html#autotoc_md0", [
+        [ "<strong>Instructions to run the game</strong>", "md__c___users__namita__one_drive__documents__c_s1023__project_cs1023_sdf_project_team_13__r_e_a_d_m_e.html#autotoc_md1", null ],
+        [ "<strong>How the game Works?</strong>", "md__c___users__namita__one_drive__documents__c_s1023__project_cs1023_sdf_project_team_13__r_e_a_d_m_e.html#autotoc_md4", [
+          [ "<strong>The Main file</strong>", "md__c___users__namita__one_drive__documents__c_s1023__project_cs1023_sdf_project_team_13__r_e_a_d_m_e.html#autotoc_md5", null ],
+          [ "<strong>The Objects file</strong>", "md__c___users__namita__one_drive__documents__c_s1023__project_cs1023_sdf_project_team_13__r_e_a_d_m_e.html#autotoc_md6", null ],
+          [ "<strong>The Menu Window</strong>", "md__c___users__namita__one_drive__documents__c_s1023__project_cs1023_sdf_project_team_13__r_e_a_d_m_e.html#autotoc_md7", null ],
+          [ "<strong>The Help Window and About Window</strong>", "md__c___users__namita__one_drive__documents__c_s1023__project_cs1023_sdf_project_team_13__r_e_a_d_m_e.html#autotoc_md8", null ],
+          [ "<strong>The Levels Window</strong>", "md__c___users__namita__one_drive__documents__c_s1023__project_cs1023_sdf_project_team_13__r_e_a_d_m_e.html#autotoc_md9", null ],
+          [ "<strong>The Play Window</strong>", "md__c___users__namita__one_drive__documents__c_s1023__project_cs1023_sdf_project_team_13__r_e_a_d_m_e.html#autotoc_md10", null ]
+        ] ],
+        [ "<strong>Ways to develop the game</strong>", "md__c___users__namita__one_drive__documents__c_s1023__project_cs1023_sdf_project_team_13__r_e_a_d_m_e.html#autotoc_md11", null ]
+      ] ]
+    ] ],
     [ "Bug List", "bug.html", null ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],

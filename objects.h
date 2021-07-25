@@ -44,6 +44,12 @@ class tile
     void setText(sf::Text Text);
     /// @brief changes button's fill colour based on it's state (green for "Hover" and yellow for "NULL")
     void updateColor();
+    /// @brief updates state of tiles depending upon user-pressed key
+    /// @param event accepts the event of key being pressed
+    /// @param options accepts the number of buttons
+    /// @param arr accepts any array of pointers to the buttons (tiles)
+    /// @return index number of the button modified
+    int update(tile* arr[],unsigned options,sf::Event& event);
 };
 
 /// @brief creates and returns pitch

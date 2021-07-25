@@ -68,41 +68,7 @@ jump_t menuWindow::call(sf::RenderWindow& window)
         {
             if(event.type==sf::Event::KeyPressed)
             {
-                switch(event.key.code)
-                {
-                    case sf::Keyboard::Up: 
-                        for(i=0;i<4;i++)
-                            if(_tile[i]->state == "Hover")
-                            {
-                                _tile[i]->state = "NULL";
-                                _tile[i]->updateColor();
-                                _tile[(i+3)%4]->state = "Hover";
-                                _tile[(i+3)%4]->updateColor();
-                                break;
-                            }
-                        break;
-                    case sf::Keyboard::Down:
-                        for(i=0;i<4;i++)
-                            if(_tile[i]->state == "Hover")
-                            {
-                                _tile[i]->state = "NULL";
-                                _tile[i]->updateColor();
-                                _tile[(i+1)%4]->state = "Hover";
-                                _tile[(i+1)%4]->updateColor();
-                                break;
-                            }
-                        break;
-                    case sf::Keyboard::Enter:
-                        for(i=0;i<4;i++)
-                        {
-                            if(_tile[i]->state == "Hover")
-                            {
-                                _tile[0]->tiles.setFillColor(sf::Color::Yellow);
-                                _tile[i]->tiles.setFillColor(sf::Color::Red);
-                                break;
-                            }
-                        }
-                }
+                i = _tile[0]->update(_tile,4,event);
             }
             render(window);
             if(event.key.code==sf::Keyboard::Enter)
